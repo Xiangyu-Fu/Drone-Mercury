@@ -1,5 +1,5 @@
 Dependencies for Project 'STAN-103', Target 'Target 1': (DO NOT MODIFY !)
-F (..\Libraries\CMSIS\startup\startup_stm32f10x_md.s)(0x4D783CD2)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I D:\projects\Drone_Mercury\2-USART\Project\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 515" --pd "STM32F10X_MD SETA 1"--list .\listings\startup_stm32f10x_md.lst --xref -o .\objects\startup_stm32f10x_md.o --depend .\objects\startup_stm32f10x_md.d)
+F (..\Libraries\CMSIS\startup\startup_stm32f10x_md.s)(0x4D783CD2)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I "E:\Website\Drone-Mercury\2. Software\2-USART\Project\RTE"-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 515" --pd "STM32F10X_MD SETA 1"--list .\listings\startup_stm32f10x_md.lst --xref -o .\objects\startup_stm32f10x_md.o --depend .\objects\startup_stm32f10x_md.d)
 F (..\Libraries\CMSIS\core_cm3.c)(0x4C0C4A6E)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Libraries\CMSIS -I..\User -I..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\User\LED -I..\User\USART -D__UVISION_VERSION="515" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD-o .\objects\core_cm3.o --omf_browse .\objects\core_cm3.crf --depend .\objects\core_cm3.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C29A18)
 F (..\Libraries\CMSIS\system_stm32f10x.c)(0x62227EE9)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Libraries\CMSIS -I..\User -I..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\User\LED -I..\User\USART -D__UVISION_VERSION="515" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD-o .\objects\system_stm32f10x.o --omf_browse .\objects\system_stm32f10x.crf --depend .\objects\system_stm32f10x.d)
@@ -728,8 +728,8 @@ I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x4D783BB4)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h)(0x4D783BB4)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x4D783BB4)
 I (..\User\LED\bsp_led.h)(0x622E1D69)
-I (..\User\USART\bsp_usart.h)(0x622E3578)
-F (..\User\stm32f10x_it.c)(0x622E37B8)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Libraries\CMSIS -I..\User -I..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\User\LED -I..\User\USART -D__UVISION_VERSION="515" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD-o .\objects\stm32f10x_it.o --omf_browse .\objects\stm32f10x_it.crf --depend .\objects\stm32f10x_it.d)
+I (..\User\USART\bsp_usart.h)(0x622F0081)
+F (..\User\stm32f10x_it.c)(0x622F047A)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Libraries\CMSIS -I..\User -I..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\User\LED -I..\User\USART -D__UVISION_VERSION="515" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD-o .\objects\stm32f10x_it.o --omf_browse .\objects\stm32f10x_it.crf --depend .\objects\stm32f10x_it.d)
 I (..\User\stm32f10x_it.h)(0x4D99978E)
 I (..\Libraries\CMSIS\stm32f10x.h)(0x62227E27)
 I (..\Libraries\CMSIS\core_cm3.h)(0x4D523B58)
@@ -759,7 +759,8 @@ I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_tim.h)(0x4D783BB4)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x4D783BB4)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h)(0x4D783BB4)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x4D783BB4)
-I (..\User\USART\bsp_usart.h)(0x622E3578)
+I (..\User\USART\bsp_usart.h)(0x622F0081)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x54C29A18)
 F (..\User\LED\bsp_led.c)(0x622E19D3)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Libraries\CMSIS -I..\User -I..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\User\LED -I..\User\USART -D__UVISION_VERSION="515" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD-o .\objects\bsp_led.o --omf_browse .\objects\bsp_led.crf --depend .\objects\bsp_led.d)
 I (..\User\LED\bsp_led.h)(0x622E1D69)
 I (..\Libraries\CMSIS\stm32f10x.h)(0x62227E27)
@@ -790,8 +791,8 @@ I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_tim.h)(0x4D783BB4)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x4D783BB4)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h)(0x4D783BB4)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x4D783BB4)
-F (..\User\USART\bsp_usart.c)(0x622E353F)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Libraries\CMSIS -I..\User -I..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\User\LED -I..\User\USART -D__UVISION_VERSION="515" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD-o .\objects\bsp_usart.o --omf_browse .\objects\bsp_usart.crf --depend .\objects\bsp_usart.d)
-I (..\User\USART\bsp_usart.h)(0x622E3578)
+F (..\User\USART\bsp_usart.c)(0x622F007F)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Libraries\CMSIS -I..\User -I..\Libraries\STM32F10x_StdPeriph_Driver\inc -I..\User\LED -I..\User\USART -D__UVISION_VERSION="515" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD-o .\objects\bsp_usart.o --omf_browse .\objects\bsp_usart.crf --depend .\objects\bsp_usart.d)
+I (..\User\USART\bsp_usart.h)(0x622F0081)
 I (..\Libraries\CMSIS\stm32f10x.h)(0x62227E27)
 I (..\Libraries\CMSIS\core_cm3.h)(0x4D523B58)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x54C29A18)
@@ -820,4 +821,5 @@ I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_tim.h)(0x4D783BB4)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x4D783BB4)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h)(0x4D783BB4)
 I (..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x4D783BB4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x54C29A18)
 F (..\Doc\readme.txt)(0x6102AF6E)()
