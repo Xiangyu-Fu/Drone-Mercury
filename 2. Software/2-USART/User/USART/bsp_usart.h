@@ -14,7 +14,8 @@
 
 
 void USART_Config(u32 baudrate);
-void Usart_SendByte(USART_TypeDef *pUSARTx, uint8_t ch); 
+void Usart_SendByte(USART_TypeDef *pUSARTx, uint8_t ch);
+void Usart_SendHalfWord(USART_TypeDef* pUSARTx, uint16_t data); 
 void Usart_SendString(USART_TypeDef *pUSARTx, char *str);  
 
 #endif

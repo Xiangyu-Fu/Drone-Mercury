@@ -1,4 +1,5 @@
 #include "bsp_usart.h"
+#include "stdio.h"
 
 
 static void NVIC_Configuration(void)
@@ -75,15 +76,31 @@ void USART_Config(u32 baudrate)
 	
 	/*----5. Enable USART----*/
 	// 使能串口
-	USART_Cmd(USART1, ENABLE);	    
+	USART_Cmd(USART1, ENABLE);
+
+	USART_ClearFlag(USART1, USART_FLAG_TC);
 }
 
-void Usart_SendByte(USART_TypeDef *pUSARTx, uint8_t ch)       // 解操作，获得USART上的值
+void Usart_SendByte(USART_TypeDef *pUSARTx, uint8_t ch)      
 {
 	 // Send a Byte to USART
 	 USART_SendData(pUSARTx, ch);
 	 
 	 while(USART_GetFlagStatus(pUSARTx, USART_FLAG_TXE) == RESET);
+}
+
+void Usart_SendHalfWord(USART_TypeDef* pUSARTx, uint16_t data)
+{
+	uint8_t temp_h, temp_l;
+	
+	temp_h = (data&0xff00) >> 8;
+	temp_l = data&0xff;
+	
+	USART_SendData(pUSARTx, temp_h);
+	while(USART_GetFlagStatus(pUSARTx, USART_FLAG_TXE) == RESET);
+	USART_SendData(pUSARTx, temp_l);
+	while(USART_GetFlagStatus(pUSARTx, USART_FLAG_TXE) == RESET);
+	
 }
 
 void Usart_SendString(USART_TypeDef *pUSARTx, char *str)     
@@ -97,4 +114,24 @@ void Usart_SendString(USART_TypeDef *pUSARTx, char *str)
 	 
 	 
 	 while(USART_GetFlagStatus(pUSARTx, USART_FLAG_TC) == RESET){}
+}
+
+// redirect the printf and scanf function
+int fputc(int ch, FILE *f)
+{
+	/* transmit a byte to USART*/
+	USART_SendData(USART1, (uint8_t) ch);
+	
+	/* Awaiting for transmitting */
+	while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
+	
+	return (ch);
+}
+
+// redirect the scanf function to USART, after redirecting you can use scanf() and getchar() etc.
+int fgetc(FILE *f)
+{
+	while(USART_GetFlagStatus(USART1, USART_FLAG_RXNE)  == RESET); 
+	
+	return (int)USART_ReceiveData(USART1);
 }
