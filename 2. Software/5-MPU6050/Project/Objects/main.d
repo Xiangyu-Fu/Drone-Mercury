@@ -33,3 +33,4 @@
 .\objects\main.o: ..\User\USART\bsp_usart.h
 .\objects\main.o: ..\User\ADC\bsp_adc.h
 .\objects\main.o: ..\User\PWM\bsp_PWM.h
+.\objects\main.o: ..\User\MPU\bsp_MPU.h

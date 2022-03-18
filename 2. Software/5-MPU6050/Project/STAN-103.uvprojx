@@ -369,7 +369,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Libraries\CMSIS;..\User;..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\User\LED;..\User\USART;..\User\ADC;..\User\PWM</IncludePath>
+              <IncludePath>..\Libraries\CMSIS;..\User;..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\User\LED;..\User\USART;..\User\ADC;..\User\PWM;..\User\MPU</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -586,6 +586,11 @@
               <FileName>bsp_PWM.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\PWM\bsp_PWM.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_MPU.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\MPU\bsp_MPU.c</FilePath>
             </File>
           </Files>
         </Group>
