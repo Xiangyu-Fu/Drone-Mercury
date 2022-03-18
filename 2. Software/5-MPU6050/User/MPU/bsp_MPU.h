@@ -46,6 +46,8 @@
 uint8_t InitMPU6050(void);
 uint8_t MPU6050_SequenceRead(void);
 void I2C2_GPIO_Config(void);
+void MPU6050_Compose(void);
+void MPU6050_Print_USART(void);
 
 
 

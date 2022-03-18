@@ -2,6 +2,7 @@
 #include "stdio.h"
 
 uint32_t MPU6050_Buffer[14];
+uint32_t MPU6050_Data[7];
 
 //////////////// STATIC FUNCS /////////////////////
 static void delay(uint32_t count)
@@ -212,9 +213,7 @@ uint8_t InitMPU6050(void)
 	 printf(",MPU6050 open failed ... \r\n");
 	 return 0;
 	}
-	
-	printf("\r\n MPU6050 operating normally ... \r\n");
-	
+		
 	Single_WriteI2C(PWR_MGMT_1, 0x00); //Power Manegement, typical Value: 0x00
 	delay(20000);
 	
@@ -267,6 +266,34 @@ uint8_t MPU6050_SequenceRead(void)
 	I2C_NACK();
 	I2C_Stop();
 	return 1;
+}
+
+void MPU6050_Compose(void)
+{
+	 uint8_t i;
+	 for(i=0; i<8; i++)
+	 {
+			MPU6050_Data[i] = MPU6050_Buffer[2*i];
+			MPU6050_Data[i] <<= 8;
+			MPU6050_Data[i] += MPU6050_Buffer[2*i + 1];			
+	 }
+}
+
+void MPU6050_Print_USART(void)
+{
+	printf("\r\n ---- GET MPU6050 DATA ---- \r\n");
+	// Accelerations 
+	printf("\r\n ACCEL_XOUT = %d", MPU6050_Data[0]);
+	printf("\r\n ACCEL_YOUT = %d", MPU6050_Data[1]);
+	printf("\r\n ACCEL_ZOUT = %d", MPU6050_Data[2]);
+	
+	// Temperature
+	printf("\r\n TEMP_OUT = %d", MPU6050_Data[3]);
+	
+	// Gyroscopes
+	printf("\r\n GYRO_XOUT = %d", MPU6050_Data[4]);
+	printf("\r\n GYRO_YOUT = %d", MPU6050_Data[5]);
+	printf("\r\n GYRO_ZOUT = %d", MPU6050_Data[6]);
 }
 
 
