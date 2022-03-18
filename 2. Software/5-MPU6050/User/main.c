@@ -28,8 +28,8 @@ int main()
 	LED2_ON; // Chip Indicator LED
 	
 	USART_Config(115200);
-	printf("\r\n //////////////////////////////////");
-	Usart_SendString(USART1, "\r\n Drone Mercury Test Begin .... \n");
+	printf("\r\n /////////////// DRONE  MERCURY ///////////////////");
+	Usart_SendString(USART1, "\r\n Drone Mercury USART Start Running .... \n");
 	
 	// ADCx_Init();
 	I2C2_GPIO_Config();
@@ -39,19 +39,20 @@ int main()
 	while(1)
 	{
 		Debug1_H;
-		delay(0xFFFF);
+		delay(0xFFFFF);
 
-
-//		LED3_ON;
-//		delay(0xBFFFF);
-//		
-//		LED3_OFF;
-//		delay(0xBFFFF);	
+    // Surrounding LEDs Blink
+		LED3_ON;
+		//delay(0xBFFFF);
+		
+		LED3_OFF;
+		//delay(0xBFFFF);	
 		
 		// Voltage_Printf();
 		MPU6050_SequenceRead();
-		printf("\r\n MPU6050 Bffer X acc = %d%d", MPU6050_Buffer[0],MPU6050_Buffer[1]);
+		MPU6050_Compose();
+		MPU6050_Print_USART();		
 		Debug1_L;
-		delay(0xFFFF);
+		delay(0xFFFFF);
 	}	
 }
