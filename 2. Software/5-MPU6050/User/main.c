@@ -4,9 +4,11 @@
 #include "bsp_usart.h"
 #include "bsp_adc.h"
 #include "bsp_PWM.h"
+#include "bsp_MPU.h"
 
 static uint16_t Battery;
 uint16_t ADC_Value[BUFFER_SIZE];
+extern uint32_t MPU6050_Buffer[14];
 
 static void delay(uint32_t count)
 {
@@ -22,24 +24,34 @@ void Voltage_Printf(void)
 
 int main()
 {
-  LED_Init();	
+  LED_Init();
+	LED2_ON; // Chip Indicator LED
+	
 	USART_Config(115200);
-	ADCx_Init();
-	MOTOR_Init();
-			
-	Usart_SendString(USART1, "\r\nDrone Mercury USART testing .... \n");
+	printf("\r\n //////////////////////////////////");
+	Usart_SendString(USART1, "\r\n Drone Mercury Test Begin .... \n");
+	
+	// ADCx_Init();
+	I2C2_GPIO_Config();
+	//MOTOR_Init();			
+	
+	InitMPU6050();
 	while(1)
 	{
-		LED2_ON;
-		
-		LED3_ON;
-		delay(0xBFFFF);
-		
-		LED2_OFF;
-		
-		LED3_OFF;
-		delay(0xBFFFF);	
+		Debug1_H;
+		delay(0xFFFF);
+
+
+//		LED3_ON;
+//		delay(0xBFFFF);
+//		
+//		LED3_OFF;
+//		delay(0xBFFFF);	
 		
 		// Voltage_Printf();
+		MPU6050_SequenceRead();
+		printf("\r\n MPU6050 Bffer X acc = %d%d", MPU6050_Buffer[0],MPU6050_Buffer[1]);
+		Debug1_L;
+		delay(0xFFFF);
 	}	
 }
