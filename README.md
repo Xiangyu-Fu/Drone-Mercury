@@ -20,3 +20,8 @@ The entity of the Drone-Mercury:
 ![e99c7a33f207afcf17370d2c1bac5e4](https://user-images.githubusercontent.com/54738414/149675084-11ee9ebb-0ace-4649-8a80-a334a578d952.png)
 ![4d6d8fa9778c6b918ab04d448f1c6d7](https://user-images.githubusercontent.com/54738414/149675081-42b92006-2812-42e7-b393-c3313830dd52.jpg)
 
+After all module have been tested:
+![Drone Mercury](https://user-images.githubusercontent.com/54738414/159178985-4270be06-1e2b-4302-b871-5a3760cff440.jpg)
+![USART Output](https://user-images.githubusercontent.com/54738414/159178957-b5b8409c-a86e-44f4-a158-7018dbcb2a30.png)
+
+
