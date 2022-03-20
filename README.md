@@ -4,7 +4,8 @@ STM32 based drone building project.
 This is the first formal project I am doing, which is based on the STM32F104. The project aims to achieve the fundamental functions of a drone, e.g. behavior regulation, or remote control. For the remote control part, it's based on 2.4G, so I will going to use STM or Andriod phone to control drone, but I have not determine yet. In the future part, I will going to add some advanced functions on it, such as camera, or maybe combine the Drone with others robots to build cluster robot.
 
 ## progress
-Next Step, I will going to test the functions of the PCB.
+- 03/07/2022 	I will going to test the functions and modules of the PCB.
+- 03/20/2022 	All modules of Drone Mercury have been tested.
 
 ## Model
 Here I will show some progress I have made in the past time.
