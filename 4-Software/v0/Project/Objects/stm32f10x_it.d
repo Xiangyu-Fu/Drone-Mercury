@@ -30,3 +30,4 @@
 .\objects\stm32f10x_it.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\objects\stm32f10x_it.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
 .\objects\stm32f10x_it.o: ..\User\USART\bsp_usart.h
+.\objects\stm32f10x_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

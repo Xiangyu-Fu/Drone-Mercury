@@ -1,6 +1,8 @@
 #include "bsp_NRF24.h"
 #include "stdio.h"
+#include "bsp_log.h"
 
+static const char *TAG = "NRF24L01";
 
 static uint16_t SPI_TIMEOUT_UserCallback(uint8_t errorCode);
 /*-------------- SPI Operations ---------------*/
@@ -62,7 +64,7 @@ void SPI_NRF_Init(void)
 
   // Enable SPI
   SPI_Cmd(NRF_SPI , ENABLE);
-	printf("\r\n SPI	Initialisation finished ...");
+	STM_LOGI(TAG, "SPI Initialisation finished");
 	
 }
 
@@ -236,9 +238,9 @@ void NRF24L01_Check(void)
 		
 	} 
 	if(i==5)
-		printf("\r\n NRF24L01 	Initialisation Successful ...");
+		STM_LOGI(TAG, "Initialisation Successful")
 	else
-		printf("\r\n WARNING:  	NRF24L01 Initialisation Failed !");
+		STM_LOGW(TAG, "NRF24L01 Initialisation Failed");
 }
  /**
   * @brief  Set the NRF24L01 to send mode
@@ -305,6 +307,13 @@ void NRF_Send_TX(uint8_t * tx_buf, uint8_t len)
 static  uint16_t SPI_TIMEOUT_UserCallback(uint8_t errorCode)
 {
   // 
-  printf("SPI wait overtime!errorCode = %d",errorCode);
+  STM_LOGW(TAG, "SPI wait overtime!errorCode = %d",errorCode);
   return 0;
+}
+
+void SPI_NRF24L01_Init(uint8_t channel, uint8_t mode)
+{
+	SPI_NRF_Init();
+	NRF24L01_Init(channel, mode);
+	NRF24L01_Check();
 }

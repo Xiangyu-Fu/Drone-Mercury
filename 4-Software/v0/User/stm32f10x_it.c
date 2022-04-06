@@ -24,6 +24,11 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
 #include "bsp_usart.h"
+#include <stdio.h>
+
+extern uint32_t Sys_Clock;
+extern uint32_t Timer3_Count, Count_1ms, Count_2ms, Count_4ms;
+extern uint8_t Bsp_Init_OK;
 
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
@@ -147,6 +152,23 @@ void USART1_IRQHandler(void)
 	}
 }
 
+void TIM3_IRQHandler(void)
+{
+	if(TIM3->SR & TIM_IT_Update)
+	{
+		TIM3->SR = ~TIM_IT_Update;
+		if(Bsp_Init_OK == 0)
+		{
+			Sys_Clock++;
+			return;
+		} 
+		Sys_Clock++;
+		Timer3_Count ++; 
+		Count_1ms ++; 
+		Count_2ms ++;
+		Count_4ms ++;
+	}
+}
 /******************************************************************************/
 /*                 STM32F10x Peripherals Interrupt Handlers                   */
 /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */

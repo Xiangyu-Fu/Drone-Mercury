@@ -1,5 +1,8 @@
 #include "bsp_PWM.h"
 #include "stdio.h"
+#include "bsp_log.h"
+
+static const char *TAG = "PWM";
 
 static void TIM2_Init_Config(void)
 {
@@ -82,5 +85,5 @@ void MOTOR_Init(void)
 {
 	TIM2_GPIO_Config();
 	TIM2_Init_Config();
-	printf("\r\n PWM	Initialisation finished ...");
+	STM_LOGI(TAG, "Initialisation finished ...");
 }

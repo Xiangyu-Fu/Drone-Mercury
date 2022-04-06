@@ -1,8 +1,11 @@
 #include "bsp_MPU.h"
 #include "stdio.h"
+#include "bsp_log.h"
 
 uint32_t MPU6050_Buffer[14];
 uint32_t MPU6050_Data[7];
+
+static const char *TAG = "MPU6050";
 
 //////////////// STATIC FUNCS /////////////////////
 static void delay(uint32_t count)
@@ -94,7 +97,7 @@ static uint8_t I2C_WaitAck(void)
 	{
 		SCL_L;
 		__nop();
-		printf("\r\n I2C receive Nack or no Responding ...");
+		STM_LOGW(TAG,"I2C receive Nack or no Responding");
 		return 0;
 	}
 	SCL_L;
@@ -129,14 +132,14 @@ static uint8_t Single_WriteI2C(unsigned char Regs_Addr, unsigned char Regs_Data)
 {
 	if(!I2C_Start())
 	{
-	 printf("\r\n Warning: I2C start failed ...");
+	 STM_LOGW(TAG,"Warning: I2C start failed");
 	 return 0;
 	}
 	I2C_WriteByte(MPU6050Addr);
 	if(!I2C_WaitAck())
 	{
 		I2C_Stop();
-		printf("\r\n Warning: Waiting Ack failed ...");
+		STM_LOGW(TAG,"Warning: Waiting Ack failed");
 		return 0;
 	}
 	I2C_WriteByte(Regs_Addr); // Write Address
@@ -159,7 +162,7 @@ static uint8_t Single_ReadI2C(unsigned char Regs_Addr)
 	if(!I2C_WaitAck())
 	{
 		I2C_Stop();
-		printf("\r\n Warning: Waiting Ack failed ...");
+		STM_LOGW(TAG,"Warning: Waiting Ack failed ...");
 		return 0;
 	}
 	I2C_WriteByte(Regs_Addr); // Write Address
@@ -199,7 +202,7 @@ void I2C2_GPIO_Config(void)
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	
-	printf("\r\n I2C	Initialisation finished ...");
+	STM_LOGI(TAG,"I2C Initialisation finished ...");
 }
 
 uint8_t InitMPU6050(void)
@@ -216,21 +219,21 @@ uint8_t InitMPU6050(void)
 	}
 		
 	Single_WriteI2C(PWR_MGMT_1, 0x00); //Power Manegement, typical Value: 0x00
-	delay(20000);
+	delay(2000);
 	
 	Single_WriteI2C(SMPLRT_DIV, 0x00); //Gyroscope sampling rate, typical Value: 0x00
-	delay(20000);
+	delay(2000);
 	
 	Single_WriteI2C(CONFIG2, 0x00); //The frequence of the Low-pass Filter, typical Value: 0x00
-	delay(20000);
+	delay(2000);
 	
 	Single_WriteI2C(GYRO_CONFIG, 0x18); //Gyroscope Self-test and Measurement range, typical Value: 0x18
-	delay(20000);
+	delay(2000);
 	
 	Single_WriteI2C(ACCEL_CONFIG, 0x1F); //Acceleration scope Self-test, Measurement range and the frequence of the high pass filter, typical Value: 0x1F
-	delay(20000);
+	delay(2000);
 	
-	printf("\r\n MPU6050	Initialisation Successful ...");
+	STM_LOGI(TAG, "MPU6050 Initialisation Successful");
 	
 	return 1;
 }
@@ -241,7 +244,7 @@ uint8_t MPU6050_SequenceRead(void)
 	
 	if(!I2C_Start())
 	{
-	 printf("\r\n Warning: I2C start failed ...");
+	 STM_LOGW(TAG, "Warning: I2C start failed");
 	 return 0;
 	}
 	

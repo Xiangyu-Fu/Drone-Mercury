@@ -35,3 +35,6 @@
 .\objects\main.o: ..\User\PWM\bsp_PWM.h
 .\objects\main.o: ..\User\MPU\bsp_MPU.h
 .\objects\main.o: ..\User\NRF24\bsp_NRF24.h
+.\objects\main.o: ..\User\Utility\bsp_utility.h
+.\objects\main.o: ..\User\Utility\bsp_log.h
+.\objects\main.o: ..\User\PWM\bsp_TIM.h
