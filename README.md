@@ -16,8 +16,7 @@ The control board of the Drone-Mercury:
 ![image](https://user-images.githubusercontent.com/54738414/149679181-d7dfe65b-55f3-4734-85ad-52b7a1748f4d.png)
 
 The entity of the Drone-Mercury:
-
-![e99c7a33f207afcf17370d2c1bac5e4](https://user-images.githubusercontent.com/54738414/149675084-11ee9ebb-0ace-4649-8a80-a334a578d952.png)
+![Drone_Mercury_v1 0](https://user-images.githubusercontent.com/54738414/161925779-22753e3d-679c-4390-8d3a-61426d50cfea.JPG)
 ![4d6d8fa9778c6b918ab04d448f1c6d7](https://user-images.githubusercontent.com/54738414/149675081-42b92006-2812-42e7-b393-c3313830dd52.jpg)
 
 After all module have been tested:
