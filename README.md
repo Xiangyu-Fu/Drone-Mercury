@@ -15,10 +15,8 @@ The control board of the Drone-Mercury:
 ![90e04fdd4b1c41bb20a127432ed265d](https://user-images.githubusercontent.com/54738414/149675059-ac7da046-55bf-405d-b65e-55640cadf401.jpg)
 ![image](https://user-images.githubusercontent.com/54738414/149679181-d7dfe65b-55f3-4734-85ad-52b7a1748f4d.png)
 
-The entity of the Drone-Mercury:
-
-![e99c7a33f207afcf17370d2c1bac5e4](https://user-images.githubusercontent.com/54738414/149675084-11ee9ebb-0ace-4649-8a80-a334a578d952.png)
-![4d6d8fa9778c6b918ab04d448f1c6d7](https://user-images.githubusercontent.com/54738414/149675081-42b92006-2812-42e7-b393-c3313830dd52.jpg)
+The 3D entity of the Drone-Mercury, which design by Solidworks:
+![Drone_Mercury_v1 0](https://user-images.githubusercontent.com/54738414/161925779-22753e3d-679c-4390-8d3a-61426d50cfea.JPG)
 
 After all module have been tested:
 ![Drone Mercury](https://user-images.githubusercontent.com/54738414/159178985-4270be06-1e2b-4302-b871-5a3760cff440.jpg)
