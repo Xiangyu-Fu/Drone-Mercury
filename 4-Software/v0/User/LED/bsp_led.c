@@ -25,6 +25,9 @@ void LED_Init(void)
 	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_Out_PP;
 	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(LED3_GPIO, &GPIO_InitStruct);
+
+	// Enable chip indicator LED
+	LED2_ON;
 }
 
 

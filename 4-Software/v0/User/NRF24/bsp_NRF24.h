@@ -35,15 +35,18 @@
 #define SPIT_FLAG_TIMEOUT         ((uint32_t)0x1000)
 #define SPIT_LONG_TIMEOUT         ((uint32_t)(10 * SPIT_FLAG_TIMEOUT))
 
+
 // Global function definitions
 void SPI_NRF_Init(void);
 void NRF24L01_Init(uint8_t Channelx, uint8_t Mode);
 void NRF24L01_Check(void);
 void NRF_Send_TX(uint8_t * tx_buf, uint8_t len);
+void SPI_NRF24L01_Init(uint8_t channel, uint8_t mode);
 
 uint8_t NRF_Read_Reg(uint8_t reg);
 uint8_t NRF_Write_Reg(uint8_t reg, uint8_t value);
 uint8_t NRF_Read_Buff(uint8_t reg, uint8_t *pBuf, uint8_t uchars);
+
 
 // Definitions of NRF
 extern uint8_t NRF24L01_RXDATA[32];
@@ -109,4 +112,7 @@ static uint8_t RX_ADDRESS[5] = {0x1A, 0x3B, 0x5C, 0x7D, 0x9E};  // Receive Addr
 #define FEATURE    			0x1D  	// ¡°Feature¡± register address 
 
 #endif 
+
+
+
 

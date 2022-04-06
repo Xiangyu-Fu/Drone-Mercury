@@ -1,7 +1,6 @@
 #include "bsp_usart.h"
 #include "stdio.h"
 
-
 static void NVIC_Configuration(void)
 {
   NVIC_InitTypeDef NVIC_InitStructure;
@@ -76,7 +75,7 @@ void USART_Config(u32 baudrate)
 	
 	/*----5. Enable USART----*/
 	// 使能串口
-	USART_Cmd(USART1, ENABLE);	    
+	USART_Cmd(USART1, ENABLE);	
 }
 
 void Usart_SendByte(USART_TypeDef *pUSARTx, uint8_t ch)       // 解操作，获得USART上的值
