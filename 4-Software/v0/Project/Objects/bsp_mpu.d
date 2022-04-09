@@ -1,5 +1,6 @@
 .\objects\bsp_mpu.o: ..\User\MPU\bsp_MPU.c
-.\objects\bsp_mpu.o: ..\User\MPU\bsp_MPU.h
+.\objects\bsp_mpu.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\bsp_mpu.o: ..\User\Utility\bsp_log.h
 .\objects\bsp_mpu.o: ..\Libraries\CMSIS\stm32f10x.h
 .\objects\bsp_mpu.o: ..\Libraries\CMSIS\core_cm3.h
 .\objects\bsp_mpu.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -29,5 +30,4 @@
 .\objects\bsp_mpu.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\objects\bsp_mpu.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\objects\bsp_mpu.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\objects\bsp_mpu.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\objects\bsp_mpu.o: ..\User\Utility\bsp_log.h
+.\objects\bsp_mpu.o: ..\User\MPU\bsp_MPU.h

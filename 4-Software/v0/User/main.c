@@ -16,47 +16,57 @@ extern uint8_t Bsp_Init_OK;
 extern uint32_t Sys_Clock;
 extern uint32_t Timer3_Count, Count_1ms, Count_2ms, Count_4ms;
 
+uint16_t I2C_Erro = 0;
+
 static const char *TAG = "main";
 
-static void delay(uint32_t count)
-{
-	u32 i,j;
-	for(i=0;i<count;i++)
-	{
-	 for(j=0;j<8500;j++);
-	}
-	
-}
 
 void BSP_Init(void)
 {
-	// Initialise UART
-	USART_Config(115200);
+	TIM3_Init(1000);																// Enable Timer
+	USART_Config(115200);														// Initialise UART
 	STM_LOGI(TAG, "Drone Mercury Start ...");
 
-	TIM3_Init(1000);
-
-	// Enable onboard LED Indicator
-  LED_Init();
-
-	// Initialise battery voltage measure
-	ADCx_Init();  
-          
-	// Initialise motor PWM driver
-	MOTOR_Init();
-
-	// Initialise and configure NRF24L01 
-	SPI_NRF24L01_Init(40, TX);
-	
-	// Initialise MPU6050 and waiting for response
-	while(InitMPU6050() == 0);
+  LED_Init();																			// Enable onboard LED Indicator
+	ADCx_Init();  																	// Initialise battery voltage measure     
+	MOTOR_Init();																		// Initialise motor PWM driver	
+	SPI_NRF24L01_Init(40, TX);											// Initialise and configure NRF24L01 		
+	while(InitMPU6050() == 0);											// Initialise MPU6050 and waiting for response
 
 	//Cal_FilteringCoe();
 
 	//FLASH_Unlock();
 	//EEPROM_Init();
 	
-	Bsp_Init_OK = 1;
+	Bsp_Init_OK = 1;  															// Sign of all Initialisation finished
+}
+
+void Task_1000HZ(void)
+{
+	Debug1_H;
+	if(MPU6050_SequenceRead == 0)
+	{
+		I2C_Erro ++;
+		// MPU6050_SingleRead();
+	}
+	MPU6050_Compose();
+	
+
+	Debug1_L;
+}
+
+void Task_500HZ(void)
+{
+	Debug2_H;
+
+	Debug2_L;
+}
+
+void Task_250HZ(void)
+{
+	Debug3_H;
+
+	Debug3_L;
 }
 
 int main()
@@ -71,10 +81,10 @@ int main()
 		MPU6050_Compose();
 		//MPU6050_Print_USART();
 		NRF_Send_TX(data, 32);
-		delay(200);
+		Delay(200);
 		STM_LOGI(TAG, "TEST");
 		
 		LED3_OFF;
-		delay(200);
+		Delay(200);
 	}	
 }
