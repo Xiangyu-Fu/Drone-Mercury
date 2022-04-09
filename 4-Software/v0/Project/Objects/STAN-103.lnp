@@ -36,6 +36,7 @@
 ".\objects\bsp_utility.o"
 ".\objects\bsp_log.o"
 ".\objects\bsp_tim.o"
+".\objects\eeprom.o"
 --library_type=microlib --strict --scatter ".\Objects\STAN-103.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

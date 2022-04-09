@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\STAN-103.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\STAN-103.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Wed Apr 06 18:01:40 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Wed Apr 06 18:21:57 2022
 <BR><P>
 <H3>Maximum Stack Usage =        160 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -401,10 +401,10 @@ Global Symbols
 <P><STRONG><a name="[67]"></a>BSP_Init</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, main.o(i.BSP_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = BSP_Init &rArr; SPI_NRF24L01_Init &rArr; NRF24L01_Check &rArr; NRF_Write_Buf &rArr; SPI_RW &rArr; SPI_TIMEOUT_UserCallback &rArr; stm_log_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
-<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Config
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_Init
+<BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Config
+<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_Init
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_NRF24L01_Init
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MOTOR_Init
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
@@ -434,6 +434,10 @@ Global Symbols
 <P><STRONG><a name="[7]"></a>DebugMon_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f10x_it.o(i.DebugMon_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
 </UL>
+<P><STRONG><a name="[b0]"></a>Delay</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, bsp_utility.o(i.Delay))
+<BR><BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
 <P><STRONG><a name="[4c]"></a>GPIO_Init</STRONG> (Thumb, 278 bytes, Stack size 24 bytes, stm32f10x_gpio.o(i.GPIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = GPIO_Init
 </UL>
@@ -441,7 +445,7 @@ Global Symbols
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C2_GPIO_Config
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_GPIO_Config
 <LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC1_GPIO_Config
-<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Config
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Config
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
 </UL>
 
@@ -482,8 +486,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitMPU6050
 </UL>
@@ -496,8 +500,8 @@ Global Symbols
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Single_WriteI2C
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Single_ReadI2C
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_Init
 </UL>
@@ -517,8 +521,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_Init_Config
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_GPIO_Config
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_Init
 </UL>
@@ -537,8 +541,8 @@ Global Symbols
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_ReadByte
 <LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_NACK
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_ACK
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -554,8 +558,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRF_Write_Buf
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRF_Read_Buf
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_NRF24L01_Init
 </UL>
@@ -663,7 +667,7 @@ Global Symbols
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C2_GPIO_Config
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_GPIO_Config
 <LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC1_GPIO_Config
-<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Config
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Config
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
 </UL>
 
@@ -717,8 +721,8 @@ Global Symbols
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Init
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Cmd
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_NRF24L01_Init
 </UL>
@@ -753,7 +757,7 @@ Global Symbols
 <P><STRONG><a name="[27]"></a>TIM3_IRQHandler</STRONG> (Thumb, 90 bytes, Stack size 0 bytes, stm32f10x_it.o(i.TIM3_IRQHandler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
 </UL>
-<P><STRONG><a name="[6b]"></a>TIM3_Init</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, bsp_tim.o(i.TIM3_Init))
+<P><STRONG><a name="[68]"></a>TIM3_Init</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, bsp_tim.o(i.TIM3_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = TIM3_Init &rArr; BASIC_TIM_NVIC_Config &rArr; NVIC_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BASIC_TIM_NVIC_Config
@@ -830,10 +834,10 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
 </UL>
 <P><STRONG><a name="[a3]"></a>USART_Cmd</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f10x_usart.o(i.USART_Cmd))
-<BR><BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Config
+<BR><BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Config
 </UL>
 
-<P><STRONG><a name="[68]"></a>USART_Config</STRONG> (Thumb, 134 bytes, Stack size 32 bytes, bsp_usart.o(i.USART_Config))
+<P><STRONG><a name="[69]"></a>USART_Config</STRONG> (Thumb, 134 bytes, Stack size 32 bytes, bsp_usart.o(i.USART_Config))
 <BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = USART_Config &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
@@ -860,7 +864,7 @@ Global Symbols
 <P><STRONG><a name="[a2]"></a>USART_ITConfig</STRONG> (Thumb, 74 bytes, Stack size 20 bytes, stm32f10x_usart.o(i.USART_ITConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = USART_ITConfig
 </UL>
-<BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Config
+<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Config
 </UL>
 
 <P><STRONG><a name="[a1]"></a>USART_Init</STRONG> (Thumb, 210 bytes, Stack size 56 bytes, stm32f10x_usart.o(i.USART_Init))
@@ -868,7 +872,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_GetClocksFreq
 </UL>
-<BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Config
+<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Config
 </UL>
 
 <P><STRONG><a name="[9f]"></a>USART_ReceiveData</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f10x_usart.o(i.USART_ReceiveData))
@@ -920,7 +924,7 @@ Global Symbols
 <P><STRONG><a name="[c3]"></a>__c89vprintf</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, printfa.o(i.__0vprintf), UNUSED)
 
 <P><STRONG><a name="[b1]"></a>vprintf</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, printfa.o(i.__0vprintf))
-<BR><BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
+<BR><BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
 </UL>
 
 <P><STRONG><a name="[c4]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
@@ -941,17 +945,17 @@ Global Symbols
 <P><STRONG><a name="[35]"></a>main</STRONG> (Thumb, 80 bytes, Stack size 8 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = main &rArr; BSP_Init &rArr; SPI_NRF24L01_Init &rArr; NRF24L01_Check &rArr; NRF_Write_Buf &rArr; SPI_RW &rArr; SPI_TIMEOUT_UserCallback &rArr; stm_log_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
+<BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRF_Send_TX
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_SequenceRead
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_Compose
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_Init
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[69]"></a>stm_log_timestamp</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_log.o(i.stm_log_timestamp))
+<P><STRONG><a name="[6a]"></a>stm_log_timestamp</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, bsp_log.o(i.stm_log_timestamp))
 <BR><BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_NRF_Init
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NRF24L01_Check
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_TIMEOUT_UserCallback
@@ -966,7 +970,7 @@ Global Symbols
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BSP_Init
 </UL>
 
-<P><STRONG><a name="[6a]"></a>stm_log_write</STRONG> (Thumb, 30 bytes, Stack size 32 bytes, bsp_log.o(i.stm_log_write))
+<P><STRONG><a name="[6b]"></a>stm_log_write</STRONG> (Thumb, 30 bytes, Stack size 32 bytes, bsp_log.o(i.stm_log_write))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = stm_log_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vprintf
@@ -1002,17 +1006,13 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetSysClock
 </UL>
 
-<P><STRONG><a name="[b0]"></a>delay</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, main.o(i.delay))
-<BR><BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
 <P><STRONG><a name="[8c]"></a>NVIC_Configuration</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, bsp_usart.o(i.NVIC_Configuration))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = NVIC_Configuration &rArr; NVIC_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_PriorityGroupConfig
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Config
+<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Config
 </UL>
 
 <P><STRONG><a name="[48]"></a>ADC1_GPIO_Config</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, bsp_adc.o(i.ADC1_GPIO_Config))
@@ -1103,8 +1103,8 @@ Local Symbols
 <P><STRONG><a name="[71]"></a>I2C_WaitAck</STRONG> (Thumb, 102 bytes, Stack size 16 bytes, bsp_mpu.o(i.I2C_WaitAck))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = I2C_WaitAck &rArr; stm_log_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
+<BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Single_WriteI2C
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Single_ReadI2C
@@ -1127,8 +1127,8 @@ Local Symbols
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_Start
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_ReadByte
 <LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_NACK
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitMPU6050
 </UL>
@@ -1140,8 +1140,8 @@ Local Symbols
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_WaitAck
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_Stop
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_Start
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitMPU6050
 </UL>
@@ -1173,8 +1173,8 @@ Local Symbols
 <P><STRONG><a name="[90]"></a>SPI_TIMEOUT_UserCallback</STRONG> (Thumb, 36 bytes, Stack size 24 bytes, bsp_nrf24.o(i.SPI_TIMEOUT_UserCallback))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = SPI_TIMEOUT_UserCallback &rArr; stm_log_write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
+<BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_write
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stm_log_timestamp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_RW
 </UL>
@@ -1188,7 +1188,7 @@ Local Symbols
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearFlag
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_Init
+<BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_Init
 </UL>
 
 <P><STRONG><a name="[64]"></a>BASIC_TIM_NVIC_Config</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, bsp_tim.o(i.BASIC_TIM_NVIC_Config))
@@ -1197,7 +1197,7 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_PriorityGroupConfig
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_Init
+<BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_Init
 </UL>
 
 <P><STRONG><a name="[aa]"></a>_fp_digits</STRONG> (Thumb, 334 bytes, Stack size 56 bytes, printfa.o(i._fp_digits), UNUSED)

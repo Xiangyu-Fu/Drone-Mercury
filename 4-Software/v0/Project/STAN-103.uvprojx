@@ -369,7 +369,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Libraries\CMSIS;..\User;..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\User\LED;..\User\USART;..\User\ADC;..\User\PWM;..\User\MPU;..\User\NRF24</IncludePath>
+              <IncludePath>..\Libraries\CMSIS;..\User;..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\User\LED;..\User\USART;..\User\ADC;..\User\PWM;..\User\MPU;..\User\NRF24;..\User\Utility</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -596,6 +596,26 @@
               <FileName>bsp_NRF24.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\NRF24\bsp_NRF24.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_utility.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Utility\bsp_utility.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_log.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Utility\bsp_log.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_TIM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\PWM\bsp_TIM.c</FilePath>
+            </File>
+            <File>
+              <FileName>EEPROM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\EEPROM.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -8,5 +8,6 @@ typedef int stm_err_t;
 #define STM_OK          0      
 #define STM_FAIL        -1  
 
+void Delay(uint32_t count);
 
 #endif 

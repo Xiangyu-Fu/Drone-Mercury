@@ -1,6 +1,6 @@
-#include "bsp_MPU.h"
 #include "stdio.h"
 #include "bsp_log.h"
+#include "bsp_MPU.h"
 
 uint32_t MPU6050_Buffer[14];
 uint32_t MPU6050_Data[7];
