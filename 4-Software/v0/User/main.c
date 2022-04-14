@@ -1,14 +1,23 @@
 #include "stm32f10x.h"
-#include "stdio.h" 
+#include <stdio.h> 
+
+// include applications
+#include "utility.h"
+#include "struct.h"
+#include "eeprom.h"
+#include "filter.h"
+
+// include board support package
 #include "bsp_led.h"
 #include "bsp_usart.h"
 #include "bsp_adc.h"
 #include "bsp_PWM.h"
 #include "bsp_MPU.h"
 #include "bsp_NRF24.h"
-#include "bsp_utility.h"
 #include "bsp_log.h"
 #include "bsp_TIM.h"
+
+
 
 extern uint32_t MPU6050_Buffer[14];
 static uint8_t data[32];
@@ -33,10 +42,10 @@ void BSP_Init(void)
 	SPI_NRF24L01_Init(40, TX);											// Initialise and configure NRF24L01 		
 	while(InitMPU6050() == 0);											// Initialise MPU6050 and waiting for response
 
-	//Cal_FilteringCoe();
+	Calculate_FilteringCoefficient(0.001f, 10.f);		// Calculate the coefficient of the IIR low pass filter
 
-	//FLASH_Unlock();
-	//EEPROM_Init();
+	FLASH_Unlock();																	// Unlock the flash
+	EE_Init();																			// Initialise the EEPROM
 	
 	Bsp_Init_OK = 1;  															// Sign of all Initialisation finished
 }
@@ -66,6 +75,49 @@ void Task_250HZ(void)
 {
 	Debug3_H;
 
+	Debug3_L;
+}
+
+
+/******************************************************************************
+函数原型：	void Task_1000HZ(void)
+功    能：	主循环中运行频率为1000HZ任务
+*******************************************************************************/ 
+void Task_1000HZ(void)
+{
+	Debug1_H;
+	if( MPU6050_SequenceRead()==0 )//若连续读取6050数据寄存器失败
+	{
+	}
+	MPU6050_Compose();//6050数据合成
+	ACC_IIR_Filter(&acc,&filter_acc);//对acc做IIR滤波
+	Gyro_Filter(&gyro,&filter_gyro);//对gyro做窗口滤波
+	Get_Radian(&filter_gyro,&SI_gyro);//角速度数据转为弧度
+	IMUupdate(SI_gyro.x,SI_gyro.y,SI_gyro.z,filter_acc.x,filter_acc.y,filter_acc.z);//姿态解算
+	//Nrf_Connect();//NRF24L01连接函数
+	Debug1_L;
+}
+
+/******************************************************************************
+函数原型：	void Task_500HZ(void)
+功    能：	主循环中运行频率为500HZ任务
+*******************************************************************************/ 
+void Task_500HZ(void)
+{
+	Debug2_H;
+	Control_Gyro(&SI_gyro,&Rc,Rc_Lock);//内环控制
+	Debug2_L;
+}
+
+/******************************************************************************
+函数原型：	void Task_250HZ(void)
+功    能：	主循环中运行频率为250HZ任务
+*******************************************************************************/ 
+void Task_250HZ(void)
+{
+	Debug3_H;
+	Get_Eulerian_Angle(&out_angle);//四元数转欧拉角
+	Control_Angle(&out_angle,&Rc);//外环控制
 	Debug3_L;
 }
 

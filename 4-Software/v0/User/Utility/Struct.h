@@ -1,15 +1,18 @@
-#ifndef _STRUCT_ALL_H_
-#define _STRUCT_ALL_H_
+#ifndef _STRUCT_H_
+#define _STRUCT_H_
+
+#include <stdio.h> 
 #include "stm32f10x.h"
 
-#include "Led.h"
-#include "Uart.h" 
-#include "Motor.h"
-#include "Timer3.h"
-#include "DMA_ADC.h"
-#include "Protocol.h"
-#include "I2C_MPU6050.h"
-#include "SPI_NRF24L01.h"
+#include "utility.h"
+#include "bsp_led.h"
+#include "bsp_usart.h"
+#include "bsp_adc.h"
+#include "bsp_PWM.h"
+#include "bsp_MPU.h"
+#include "bsp_NRF24.h"
+#include "bsp_log.h"
+#include "bsp_TIM.h"
 
 /******************************************************************************
 							宏定义
@@ -30,6 +33,8 @@ void EEPROM_READ_GYRO_OFFSET(void);
 void EEPROM_SAVE_PID(void);
 void EEPROM_READ_PID(void);
 void PID_Reset(void);
+
+
 /******************************************************************************
 							结构体声明
 *******************************************************************************/ 

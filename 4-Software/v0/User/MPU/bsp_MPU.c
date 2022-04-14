@@ -1,6 +1,7 @@
 #include "stdio.h"
 #include "bsp_log.h"
 #include "bsp_MPU.h"
+#include "utility.h"
 
 uint32_t MPU6050_Buffer[14];
 uint32_t MPU6050_Data[7];
@@ -188,7 +189,7 @@ void I2C2_GPIO_Config(void)
 	
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
 
-	GPIO_InitStructure.GPIO_Pin = Debug1_Pin;// | Debug2_Pin | Debug3_Pin;
+	GPIO_InitStructure.GPIO_Pin = Debug1_Pin| Debug2_Pin | Debug3_Pin;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
