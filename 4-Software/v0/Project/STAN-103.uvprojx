@@ -47,7 +47,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>STAN-103</OutputName>
+          <OutputName>Mercury</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -568,6 +568,56 @@
               <FilePath>..\User\stm32f10x_it.c</FilePath>
             </File>
             <File>
+              <FileName>EEPROM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\utility\EEPROM.c</FilePath>
+            </File>
+            <File>
+              <FileName>Struct.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Utility\Struct.c</FilePath>
+            </File>
+            <File>
+              <FileName>Filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Filter.c</FilePath>
+            </File>
+            <File>
+              <FileName>Maths.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Maths.c</FilePath>
+            </File>
+            <File>
+              <FileName>Utility.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Utility\Utility.c</FilePath>
+            </File>
+            <File>
+              <FileName>IMU.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\MPU\IMU.c</FilePath>
+            </File>
+            <File>
+              <FileName>Task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Utility\Task.c</FilePath>
+            </File>
+            <File>
+              <FileName>Protocol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Utility\Protocol.c</FilePath>
+            </File>
+            <File>
+              <FileName>Control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Utility\Control.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>BSP</GroupName>
+          <Files>
+            <File>
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\LED\bsp_led.c</FilePath>
@@ -598,11 +648,6 @@
               <FilePath>..\User\NRF24\bsp_NRF24.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_utility.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\Utility\bsp_utility.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_log.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Utility\bsp_log.c</FilePath>
@@ -612,22 +657,10 @@
               <FileType>1</FileType>
               <FilePath>..\User\PWM\bsp_TIM.c</FilePath>
             </File>
-            <File>
-              <FileName>EEPROM.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\EEPROM.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>DOC</GroupName>
-          <Files>
-            <File>
-              <FileName>readme.txt</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Doc\readme.txt</FilePath>
-            </File>
-          </Files>
         </Group>
       </Groups>
     </Target>
