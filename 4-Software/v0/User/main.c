@@ -6,6 +6,9 @@
 #include "struct.h"
 #include "eeprom.h"
 #include "filter.h"
+#include "Maths.h"
+#include "IMU.h"
+#include "Control.h"
 
 // include board support package
 #include "bsp_led.h"
@@ -58,38 +61,7 @@ void Task_1000HZ(void)
 		I2C_Erro ++;
 		// MPU6050_SingleRead();
 	}
-	MPU6050_Compose();
-	
-
-	Debug1_L;
-}
-
-void Task_500HZ(void)
-{
-	Debug2_H;
-
-	Debug2_L;
-}
-
-void Task_250HZ(void)
-{
-	Debug3_H;
-
-	Debug3_L;
-}
-
-
-/******************************************************************************
-函数原型：	void Task_1000HZ(void)
-功    能：	主循环中运行频率为1000HZ任务
-*******************************************************************************/ 
-void Task_1000HZ(void)
-{
-	Debug1_H;
-	if( MPU6050_SequenceRead()==0 )//若连续读取6050数据寄存器失败
-	{
-	}
-	MPU6050_Compose();//6050数据合成
+	MPU6050_Compose();  // WARING: Maybe some problem in this func.
 	ACC_IIR_Filter(&acc,&filter_acc);//对acc做IIR滤波
 	Gyro_Filter(&gyro,&filter_gyro);//对gyro做窗口滤波
 	Get_Radian(&filter_gyro,&SI_gyro);//角速度数据转为弧度
@@ -98,26 +70,18 @@ void Task_1000HZ(void)
 	Debug1_L;
 }
 
-/******************************************************************************
-函数原型：	void Task_500HZ(void)
-功    能：	主循环中运行频率为500HZ任务
-*******************************************************************************/ 
 void Task_500HZ(void)
 {
 	Debug2_H;
-	Control_Gyro(&SI_gyro,&Rc,Rc_Lock);//内环控制
+	// Control_Gyro(&SI_gyro,&Rc,Rc_Lock);//内环控制
 	Debug2_L;
 }
 
-/******************************************************************************
-函数原型：	void Task_250HZ(void)
-功    能：	主循环中运行频率为250HZ任务
-*******************************************************************************/ 
 void Task_250HZ(void)
 {
 	Debug3_H;
 	Get_Eulerian_Angle(&out_angle);//四元数转欧拉角
-	Control_Angle(&out_angle,&Rc);//外环控制
+	// Control_Angle(&out_angle,&Rc);//外环控制
 	Debug3_L;
 }
 

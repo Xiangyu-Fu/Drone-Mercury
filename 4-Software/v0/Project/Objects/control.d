@@ -29,8 +29,7 @@
 .\objects\control.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 .\objects\control.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\objects\control.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-.\objects\control.o: ..\User\Maths.h
-.\objects\control.o: ..\User\Utility\struct.h
+.\objects\control.o: ..\User\Utility\Struct.h
 .\objects\control.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\control.o: ..\User\Utility\utility.h
 .\objects\control.o: ..\User\LED\bsp_led.h
@@ -41,3 +40,4 @@
 .\objects\control.o: ..\User\NRF24\bsp_NRF24.h
 .\objects\control.o: ..\User\Utility\bsp_log.h
 .\objects\control.o: ..\User\PWM\bsp_TIM.h
+.\objects\control.o: ..\User\Maths.h
