@@ -21,7 +21,3 @@ The 3D entity of the Drone-Mercury, which design by Solidworks:
 After all module have been tested:
 ![Drone Mercury](https://user-images.githubusercontent.com/54738414/159178985-4270be06-1e2b-4302-b871-5a3760cff440.jpg)
 ![USART Output](https://user-images.githubusercontent.com/54738414/159178957-b5b8409c-a86e-44f4-a158-7018dbcb2a30.png)
-
-
-
-
