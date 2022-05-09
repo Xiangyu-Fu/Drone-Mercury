@@ -5,6 +5,9 @@
 
 typedef int stm_err_t;
 
+
+int16_t Battery_Fly;
+
 #define STM_OK          0      
 #define STM_FAIL        -1  
 

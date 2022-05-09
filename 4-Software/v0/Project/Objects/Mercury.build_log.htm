@@ -21,33 +21,19 @@ Target DLL:      CMSIS_AGDI.dll V1.21.12.0
 Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
-D:\Projects\Drone_Mercury\4-Software\v0\Project\STAN-103.uvprojx
-Project File Date:  04/08/2022
+E:\Website\Drone-Mercury\4-Software\v0\Project\STAN-103.uvprojx
+Project File Date:  04/14/2022
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
+assembling startup_stm32f10x_md.s...
 compiling main.c...
-..\User\main.c(86): error:  #247: function "Task_1000HZ" has already been defined
-  void Task_1000HZ(void)
-..\User\main.c(95): warning:  #223-D: function "Get_Radian" declared implicitly
-        Get_Radian(&filter_gyro,&SI_gyro);//???Ù¶??ý¾?×ªÎª»¡??
-..\User\main.c(96): warning:  #223-D: function "IMUupdate" declared implicitly
-        IMUupdate(SI_gyro.x,SI_gyro.y,SI_gyro.z,filter_acc.x,filter_acc.y,filter_acc.z);//??Ì¬????
-..\User\main.c(105): error:  #247: function "Task_500HZ" has already been defined
-  void Task_500HZ(void)
-..\User\main.c(108): warning:  #223-D: function "Control_Gyro" declared implicitly
-        Control_Gyro(&SI_gyro,&Rc,Rc_Lock);//?Ú»·¿???
-..\User\main.c(108): error:  #20: identifier "Rc_Lock" is undefined
-        Control_Gyro(&SI_gyro,&Rc,Rc_Lock);//?Ú»·¿???
-..\User\main.c(116): error:  #247: function "Task_250HZ" has already been defined
-  void Task_250HZ(void)
-..\User\main.c(119): warning:  #223-D: function "Get_Eulerian_Angle" declared implicitly
-        Get_Eulerian_Angle(&out_angle);//??Ôª??×ªÅ·À­??
-..\User\main.c(120): warning:  #223-D: function "Control_Angle" declared implicitly
-        Control_Angle(&out_angle,&Rc);//?â»?????
-..\User\main.c: 5 warnings, 4 errors
-compiling Struct.c...
+..\User\MPU\IMU.h(16): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\User\Utility\Control.h(19): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\User\main.c: 2 warnings, 0 errors
 compiling Task.c...
 ..\User\MPU\IMU.h(16): warning:  #1-D: last line of file ends without a newline
   #endif
@@ -63,43 +49,23 @@ compiling Protocol.c...
   }
 ..\User\Utility\Protocol.c: 1 warning, 2 errors
 compiling Control.c...
-..\User\Utility\Control.h(15): warning:  #231-D: declaration is not visible outside of function
-  void RC_Limit(struct _Rc *rc);
-..\User\Utility\Control.h(16): warning:  #231-D: declaration is not visible outside of function
-  void Control_Angle(struct _out_angle *angle,struct _Rc *rc);
-..\User\Utility\Control.h(16): warning:  #231-D: declaration is not visible outside of function
-  void Control_Angle(struct _out_angle *angle,struct _Rc *rc);
-..\User\Utility\Control.h(17): warning:  #231-D: declaration is not visible outside of function
-  void Control_Gyro(struct _SI_float *gyro,struct _Rc *rc,uint8_t Lock);
-..\User\Utility\Control.h(17): warning:  #231-D: declaration is not visible outside of function
-  void Control_Gyro(struct _SI_float *gyro,struct _Rc *rc,uint8_t Lock);
 ..\User\Utility\Control.h(19): warning:  #1-D: last line of file ends without a newline
   #endif
-..\User\Utility\Control.c(11): error:  #147-D: declaration is incompatible with "void RC_Limit(struct _Rc *)" (declared at line 15 of "..\User\Utility\Control.h")
-  void RC_Limit(struct _Rc *rc)
-..\User\Utility\Control.c(45): warning:  #223-D: function "Delay_led" declared implicitly
-                Delay_led(100);
-..\User\Utility\Control.c(59): warning:  #223-D: function "Delay_led" declared implicitly
-                Delay_led(100);
 ..\User\Utility\Control.c(72): warning:  #223-D: function "Do_GYRO_Offset" declared implicitly
                 Do_GYRO_Offset();//?????????Öµ?Ò¡?Ë´??????Â½Ç£?????Ò¡?Ë¸??ö·???À­µ½?îµ×£?Ð£????????
 ..\User\Utility\Control.c(73): warning:  #223-D: function "Do_ACC_Offset" declared implicitly
                 Do_ACC_Offset(); //?????????Öµ?Ò¡?Ë´??????Â½Ç£?????Ò¡?Ë¸??ö·???À­µ½?îµ×£?Ð£?ý¼??Ù¶È¼?
 ..\User\Utility\Control.c(76): warning:  #223-D: function "Delay_led" declared implicitly
                 Delay_led(50);
-..\User\Utility\Control.c(91): error:  #147-D: declaration is incompatible with "void Control_Angle(struct _out_angle *, struct _Rc *)" (declared at line 16 of "..\User\Utility\Control.h")
-  void Control_Angle(struct _out_angle *angle,struct _Rc *rc)
-..\User\Utility\Control.c(154): error:  #147-D: declaration is incompatible with "void Control_Gyro(struct _SI_float *, struct _Rc *, uint8_t)" (declared at line 17 of "..\User\Utility\Control.h")
-  void Control_Gyro(struct _SI_float *gyro,struct _Rc *rc,uint8_t Lock)
 ..\User\Utility\Control.c(237): warning:  #223-D: function "Motor_Out" declared implicitly
         Motor_Out(throttle1,throttle2,throttle3,throttle4);
 ..\User\Utility\Control.c(238): warning:  #1-D: last line of file ends without a newline
   }
-..\User\Utility\Control.c: 13 warnings, 3 errors
-".\Objects\Mercury.axf" - 9 Error(s), 21 Warning(s).
+..\User\Utility\Control.c: 6 warnings, 0 errors
+".\Objects\Mercury.axf" - 2 Error(s), 11 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
-  D:\Projects\Drone_Mercury\4-Software\v0\Project\RTE
+  E:\Website\Drone-Mercury\4-Software\v0\Project\RTE
   C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>

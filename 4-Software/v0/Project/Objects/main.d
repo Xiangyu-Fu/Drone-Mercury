@@ -41,3 +41,6 @@
 .\objects\main.o: ..\User\PWM\bsp_TIM.h
 .\objects\main.o: ..\User\Utility\eeprom.h
 .\objects\main.o: ..\User\filter.h
+.\objects\main.o: ..\User\Maths.h
+.\objects\main.o: ..\User\MPU\IMU.h
+.\objects\main.o: ..\User\Utility\Control.h
