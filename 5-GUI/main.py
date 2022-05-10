@@ -1,16 +1,29 @@
-# This is a sample Python script.
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+"""
+ZetCode PyQt5 tutorial
+
+In this example, we create a simple
+window in PyQt5.
+
+author: Jan Bodnar
+website: zetcode.com
+Last edited: August 2017
+"""
+
+import sys
+from PyQt5.QtWidgets import QApplication, QWidget
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    app = QApplication(sys.argv)
+
+    w = QWidget()
+    w.resize(250, 150)
+    w.move(300, 300)
+    w.setWindowTitle('Simple')
+    w.show()
+
+    sys.exit(app.exec_())
