@@ -61,3 +61,5 @@ for kk in ks:
     tmp['type'] = 'resampling'
     re_cf = re_cf.append(tmp)
 re_cf.columns = ['diff_coef_' + str(i) for i in range(len(true_coef))] + ['diff_intercept'] + ['splits'] + ['type']
+
+# calculate the mean and standard deviation of the coefficients
