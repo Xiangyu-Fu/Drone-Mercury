@@ -58,20 +58,69 @@ void showData() {
 
 #include <Arduino.h>
 
+using namespace std;
+
+
 String received_data;
+string received_data_string;
+string output_data;
+char *p_data;
+
+String default_data = "100100000100100000";
+String test_data = "100";
+
+String joy_left_x;
+String joy_left_y;
+String joy_right_x;
+String joy_right_y;
+const int ktest= 100;
+
 
 void ReadData(void)
 {
     if ( Serial.available() ) {
         received_data = Serial.readString();
     }
+    else {
+        received_data = default_data;
+    }
+    delay(20);
 }
+
+void ProcessData(void)
+{
+    if (received_data.length() > 17)
+    {
+        joy_left_x = received_data.substring(0, 3);
+        int left_x = joy_left_x.toInt();
+        joy_left_y = received_data.substring(3, 6);
+        int left_y = joy_left_y.toInt();
+        joy_right_x = received_data.substring(6, 9);
+        int right_x = joy_right_x.toInt();
+        joy_right_y = received_data.substring(9, 12);
+        int right_y = joy_right_y.toInt();
+        delay(20);
+    }
+}
+
+void ShowData(void)
+{
+    // Serial.print("Data received: \n");
+    // Serial.println(received_data);
+    // Serial.print("Joy Left X: \n");
+    Serial.println(joy_left_x);
+    Serial.println(joy_left_y);
+    // Serial.println(joy_right_x);
+    // Serial.println(joy_right_y);
+}
+
 void setup() {
     Serial.begin(9600);
 }
 
 void loop() {
     ReadData();
-    Serial.println(received_data);
-    delay(200);
+    ProcessData();
+    ShowData();
+    delay(20);
 }
