@@ -1,22 +1,45 @@
 import pygame
 import time
+import serial
 
-pygame.init()
-pygame.joystick.init()
-done=False
+class Joystick:
+    def __init__(self):
+        # initialization for joystick
+        pygame.init()
+        pygame.joystick.init()
+        self.joystick_count = pygame.joystick.get_count()
+        self.joystick = pygame.joystick.Joystick(0)
+        self.joystick.init()
+        self.axes = self.joystick.get_numaxes()
 
-while (done != True):
-    for event in pygame.event.get():  # User did something
-        if event.type == pygame.QUIT:  # If user clicked close
-            done = True  # Flag that we are done so we exit this loop
-    joystick_count = pygame.joystick.get_count()
-    for i in range(joystick_count):
-        joystick = pygame.joystick.Joystick(i)
-        joystick.init()
-        axes = joystick.get_numaxes()
-        print('================')
-        time.sleep(0.1)
-        for i in range(axes):
-            axis = joystick.get_axis(i)
-            print(axis)
+        # initialization for serial
+        self.ser = serial.Serial(
+            port='/dev/ttyUSB0',
+            baudrate=9600,
+            parity=serial.PARITY_ODD,
+            stopbits=serial.STOPBITS_TWO,
+            bytesize=serial.SEVENBITS
+        )
+        self.ser.isOpen()
+        self.done=False
+
+    def JoystickRead(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.done = True
+
+        for i in range(self.axes):
+            axis = int(round(self.joystick.get_axis(i), 2)*100) + 100
+            axis_str = str(axis).zfill(3)
+            self.ser.write(axis_str.encode('utf-8'))
+            print(axis_str)
+            received_data = self.ser.readline().decode() # read a byte
+        
+        print(received_data)    
+
+if __name__ == '__main__':
+    joystick = Joystick()
+    while (joystick.done != True):
+        joystick.JoystickRead()
+        time.sleep(1)
             
