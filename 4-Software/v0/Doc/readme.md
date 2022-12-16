@@ -5,6 +5,11 @@
 ![图 3](../../../images/7b60717e131da4be5a42895dda7ba4beec6af30a2b76006480d142ebc8d3270f.gif)  
 
 
-现在需要方法来连接到四轴上,令无人机飞起来.
+手柄测试完成，
 
-2022年9月14日, 并未确认具体方法,等未来尝试.
+```c
+    dataToSend[5] = joy_left_x_value & 0xFF;
+    dataToSend[6] = (joy_left_x_value >> 8) & 0xFF;
+    dataToSend[7] = joy_left_y_value & 0xFF;
+    dataToSend[8] = (joy_left_y_value >> 8) & 0xFF;
+```
