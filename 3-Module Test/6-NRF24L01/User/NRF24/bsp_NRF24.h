@@ -22,14 +22,11 @@
 #define NRF_IRQ_Port      						GPIOB
 #define NRF_IRQ_Pin										GPIO_Pin_0
 
-#define SPI_NRF_CSN_L     						GPIO_ResetBits(NRF_CSN_Port, NRF_CSN_Pin)
-#define SPI_NRF_CSN_H    							GPIO_SetBits(NRF_CSN_Port, NRF_CSN_Pin)
-
-#define NRF_CE_L     									GPIO_ResetBits(NRF_CE_Port, NRF_CE_Pin)
-#define NRF_CE_H    									GPIO_SetBits(NRF_CE_Port, NRF_CE_Pin)
-
-#define SPI_NRF_IRQ_Read 							NRF_IRQ_Port->IDR  & NRF_IRQ_Pin
-
+#define NRF_CE_H   		NRF_CE_Port ->BSRR = NRF_CE_Pin  //CE高电平
+#define NRF_CE_L   		NRF_CE_Port ->BRR  = NRF_CE_Pin  //CE低电平
+#define SPI_NRF_CSN_H  		NRF_CSN_Port->BSRR = NRF_CSN_Pin //CSN高电平
+#define SPI_NRF_CSN_L  		NRF_CSN_Port->BRR  = NRF_CSN_Pin //CSN高电平
+#define	NRF_IRQ_Read	NRF_IRQ_Port->IDR  & NRF_IRQ_Pin //IRQ读数据
 
 // Waiting Time
 #define SPIT_FLAG_TIMEOUT         ((uint32_t)0x1000)
@@ -37,18 +34,22 @@
 
 
 // Definitions of NRF
-extern uint8_t NRF24L01_RXDATA[8];
-extern uint8_t NRF24L01_TXDATA[8];
-static uint8_t TX_ADDRESS[5] = {0x41, 0x41, 0x41, 0x41, 0x41};  // local Addr
-static uint8_t RX_ADDRESS[5] = {0x42, 0x42, 0x42, 0x42, 0x42};  // Receive Addr
+extern uint8_t NRF24L01_RXDATA[32];
+extern uint8_t NRF24L01_TXDATA[32];
+static uint8_t TX_ADDRESS[5] = {0x1A, 0x3B, 0x5C, 0x7D, 0x9E};  // local Addr
+static uint8_t RX_ADDRESS[5] = {0x1A, 0x3B, 0x5C, 0x7D, 0x9E};  // Receive Addr
+static uint16_t Nrf_Erro;
 
 
 // Global function definitions
 void SPI_NRF_Init(void);
+void NRF24L01_IRQ(void);
 void NRF24L01_Init(uint8_t Channelx, uint8_t Mode);
 void NRF24L01_Check(void);
 void NRF_Send_TX(uint8_t * tx_buf, uint8_t len);
 void NRF24L01_Test(void);
+
+void NRF24L01_print_reg(void);
 
 uint8_t NRF_Read_Reg(uint8_t reg);
 uint8_t NRF_Write_Reg(uint8_t reg, uint8_t value);

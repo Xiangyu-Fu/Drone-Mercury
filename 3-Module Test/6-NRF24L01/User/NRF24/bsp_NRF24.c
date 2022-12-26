@@ -15,6 +15,7 @@ void SPI_NRF_Init(void)
 {
   SPI_InitTypeDef  SPI_InitStructure;
   GPIO_InitTypeDef GPIO_InitStructure;
+	EXTI_InitTypeDef EXTI_InitStructure;
 	
 	/* Enable Clocks */
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
@@ -44,6 +45,14 @@ void SPI_NRF_Init(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
   GPIO_Init(NRF_IRQ_Port, &GPIO_InitStructure);
+
+
+	GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource0);
+	EXTI_InitStructure.EXTI_Line=EXTI_Line0;
+	EXTI_InitStructure.EXTI_Mode=EXTI_Mode_Interrupt;//外部中断
+	EXTI_InitStructure.EXTI_Trigger=EXTI_Trigger_Falling;//下降沿触发
+	EXTI_InitStructure.EXTI_LineCmd=ENABLE;
+	EXTI_Init(&EXTI_InitStructure);
 
   // Stop NRF
   SPI_NRF_CSN_H;
@@ -179,68 +188,6 @@ static uint8_t NRF_Read_Buf(uint8_t reg, uint8_t * pBuf, uint8_t uchars)
 }
 
 
-/*---------------NRF24L01 Operations----------------*/
- /**
-  * @brief  NRF24L01 Initialisation Function
-  * @param  Channelx   : Channel
-	* @param  Mode : Send mode (TX) or Receive mode (RX)
-  * @retval void
-  */
-void NRF24L01_Init(uint8_t Channelx, uint8_t Mode)
-{
-	NRF_CE_L;
-	
-	NRF_Write_Reg(FLUSH_TX,0xff);  // Clean Send Bufer
-	NRF_Write_Reg(FLUSH_RX,0xff);  // Clean Receive Bufer
-	
-	NRF_Write_Buf(NRF_WRITE_REG + TX_ADDR, TX_ADDRESS, 5);  		// Write TX Addr
-	NRF_Write_Buf(NRF_WRITE_REG + RX_ADDR_P0, RX_ADDRESS, 5);  	// Write RX Addr
-	
-	NRF_Write_Reg(NRF_WRITE_REG + EN_AA, 0x01);									// Enable auto-answer for channel 0
-	NRF_Write_Reg(NRF_WRITE_REG + EN_RXADDR, 0x01);							// Enable receive addr for channel 0
-	
-	NRF_Write_Reg(NRF_WRITE_REG + SETUP_RETR, 0x1a);						// Set auto resend interval: 500us; Max. number of re-sends: 10
-	NRF_Write_Reg(NRF_WRITE_REG + RF_CH, Channelx);							// Set RF channel
-	NRF_Write_Reg(NRF_WRITE_REG + RX_PW_P0, 32);								// Set the effective data width of channel 0
-	NRF_Write_Reg(NRF_WRITE_REG + RF_SETUP, 0x0f);							// Set TX transmit params, 0db gain, 2Mbps, enable low noise gain
-	
-	if(Mode == TX)
-		NRF_Write_Reg(NRF_WRITE_REG + CONFIG, 0x0E);
-	else if(Mode == RX)
-		NRF_Write_Reg(NRF_WRITE_REG + CONFIG, 0x0F);
-	
-	
-	NRF_CE_H;
-}
-
- /**
-  * @brief  NRF24L01 Initialisation check function
-	* @param  void
-  * @retval void
-  */
-
-void NRF24L01_Check(void)
-{ 
-	uint8_t buf[5]; 
-	uint8_t i; 
-
-	NRF_Write_Buf(NRF_WRITE_REG + TX_ADDR,TX_ADDRESS,5); 	// Write 5 Bytes data to NRF
-	NRF_Read_Buf(NRF_READ_REG + TX_ADDR,buf,5);   				// Read 5 Bytes data from NRF
-	
-	// Compare sent and received data
-	for(i=0;i<5;i++) 
-	{ 
-		if(buf[i]!=TX_ADDRESS[i])
-		{
-			break;
-		}
-		
-	} 
-	if(i==5)
-		printf("\r\n NRF24L01 	Initialisation Successful ...");
-	else
-		printf("\r\n WARNING:  	NRF24L01 Initialisation Failed !");
-}
  /**
   * @brief  Set the NRF24L01 to send mode
   * @param  void
@@ -275,29 +222,77 @@ static void NRF24L01_Set_RX(void)
 
 void NRF_Send_TX(uint8_t * tx_buf, uint8_t len)
 {		
-	NRF24L01_Set_TX(); 		// Send mode
-	NRF_CE_L; 						// Enter standby mode 1	
-	NRF_Write_Buf(WR_TX_PLOAD, tx_buf, len);// load data
-	NRF_CE_H;							//Set CE high to start send, CE high for a minimum duration of 10us
-	while(SPI_NRF_IRQ_Read);
-	
-	uint8_t status = NRF_Read_Reg(NRF_READ_REG + NRFRegSTATUS);
-	
-	if(status & (1<<MAX_RT)) //Maximum number of re-send interruptions reached
-	{
-		if(status & (1<<TX_FULL))//TX FIFO overflow
-		{
-			NRF_Write_Reg(FLUSH_TX,0xff); //clean send Bufer
-			//printf("clean send buffer");
-		}
-	}
-	if(status &(1<<TX_DS))//send finished
-	{	
-		NRF24L01_Set_RX();//set to receive mode
-		printf("set to receive mode");
-	}
-	
+	NRF24L01_Set_TX();
+	NRF_CE_L;//进入待机模式1	
+	NRF_Write_Buf(WR_TX_PLOAD, tx_buf, len);//装载数据
+	NRF_CE_H;//设置CE为高，启动发射。CE高电平持续时间最小为10us
 }
+
+
+ /**
+  * @brief  NRF24L01 Initialisation check function
+	* @param  void
+  * @retval void
+  */
+
+void NRF24L01_Check(void)
+{ 
+	uint8_t buf[5]; 
+	uint8_t i; 
+
+	NRF_Write_Buf(NRF_WRITE_REG + TX_ADDR,TX_ADDRESS,5); 	// Write 5 Bytes data to NRF
+	NRF_Read_Buf(NRF_READ_REG + TX_ADDR,buf,5);   				// Read 5 Bytes data from NRF
+	
+	// Compare sent and received data
+	for(i=0;i<5;i++) 
+	{ 
+		if(buf[i]!=TX_ADDRESS[i])
+		{
+			break;
+		}
+		
+	} 
+	if(i==5)
+		printf("\r\n NRF24L01 	Initialisation Successful ...");
+	else
+		printf("\r\n WARNING:  	NRF24L01 Initialisation Failed !");
+}
+
+/*---------------NRF24L01 Operations----------------*/
+ /**
+  * @brief  NRF24L01 Initialisation Function
+  * @param  Channelx   : Channel
+	* @param  Mode : Send mode (TX) or Receive mode (RX)
+  * @retval void
+  */
+void NRF24L01_Init(uint8_t Channelx, uint8_t Mode)
+{
+	NRF_CE_L;
+	
+	NRF_Write_Reg(FLUSH_TX,0xff);  // Clean Send Bufer
+	NRF_Write_Reg(FLUSH_RX,0xff);  // Clean Receive Bufer
+	
+	NRF_Write_Buf(NRF_WRITE_REG + TX_ADDR, TX_ADDRESS, 5);  		// Write TX Addr
+	NRF_Write_Buf(NRF_WRITE_REG + RX_ADDR_P0, RX_ADDRESS, 5);  	// Write RX Addr
+	
+	NRF_Write_Reg(NRF_WRITE_REG + EN_AA, 0x01);									// Enable auto-answer for channel 0
+	NRF_Write_Reg(NRF_WRITE_REG + EN_RXADDR, 0x01);							// Enable receive addr for channel 0
+	NRF_Write_Reg(NRF_WRITE_REG + SETUP_RETR, 0x1a);						// Set auto resend interval: 500us; Max. number of re-sends: 10
+	NRF_Write_Reg(NRF_WRITE_REG + RF_CH, 40);							// Set RF channel
+	NRF_Write_Reg(NRF_WRITE_REG + RX_PW_P0, 32);								// Set the effective data width of channel 0
+	NRF_Write_Reg(NRF_WRITE_REG + RF_SETUP, 0x0f);							// Set TX transmit params, 0db gain, 2Mbps, enable low noise gain
+	
+	if(Mode == TX)
+		NRF_Write_Reg(NRF_WRITE_REG + CONFIG, 0x0E);
+	else if(Mode == RX)
+		NRF_Write_Reg(NRF_WRITE_REG + CONFIG, 0x0F);
+	
+	
+	NRF_CE_H;
+
+	NRF24L01_print_reg();
+}
+
 
 /**
   * @brief  Waiting overtime callback function
@@ -346,6 +341,16 @@ void NRF24L01_Test(void)
 {
 	uint8_t test_data[8] = {0xfe, 100, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f};
 	nRF24L01_Set_TX_Mode(test_data);
+
+	uint8_t status = NRF_Read_Reg(NRF_READ_REG + NRFRegSTATUS);
+	if(status & (1<<MAX_RT))//达到最多次重发中断
+	{
+		if(status & (1<<TX_FULL))//TX FIFO 溢出
+		{
+			NRF_Write_Reg(FLUSH_TX,0xff);//清空发送缓冲区
+			NRF_Write_Reg(NRF_WRITE_REG + NRFRegSTATUS, status);//清除中断标志位	
+		}
+	}
 //	NRF24L01_Analyse();
 //	//while(SPI_NRF_IRQ_Read);
 //	//uint8_t status = NRF_Read_Reg(NRF_READ_REG + NRFRegSTATUS);
@@ -356,4 +361,46 @@ void NRF24L01_Test(void)
 //		printf("%d", NRF24L01_RXDATA[i]);
 //	}
 //  //NRF_Write_Reg(NRF_WRITE_REG + NRFRegSTATUS, status);
+}
+
+void NRF24L01_print_reg(void)
+{
+		uint8_t buf[8];
+		for(int i = 0;i<1;i++)
+		{
+			NRF_Read_Buf(NRF_READ_REG + 0x07,buf,1);   				// Read 5 Bytes data from NRF
+			printf("Buffer STATUS:");
+			printf("%d \n", buf[0]);
+		}
+}
+
+void NRF24L01_IRQ(void)	
+{
+	uint8_t status = NRF_Read_Reg(NRF_READ_REG + NRFRegSTATUS);
+	
+	if(status & (1<<RX_DR))//接收中断
+	{	
+		uint8_t rx_len = NRF_Read_Reg(R_RX_PL_WID);
+		if(rx_len==32)
+		{
+			NRF_Read_Buf(RD_RX_PLOAD,NRF24L01_RXDATA,rx_len);//读取接收FIFO数据
+			Nrf_Erro = 0;
+		}
+		else
+		{
+			NRF_Write_Reg(FLUSH_RX,0xff);//清空接收缓冲区
+		}
+	}
+	if(status & (1<<MAX_RT))//达到最多次重发中断
+	{
+		if(status & (1<<TX_FULL))//TX FIFO 溢出
+		{
+			NRF_Write_Reg(FLUSH_TX,0xff);//清空发送缓冲区
+		}
+	}
+//	if(status&(1<<TX_DS))//发送完成
+//	{	
+		NRF24L01_Set_RX();//设置Nrf2401为接收模式
+//	}
+	NRF_Write_Reg(NRF_WRITE_REG + NRFRegSTATUS, status);//清除中断标志位	
 }

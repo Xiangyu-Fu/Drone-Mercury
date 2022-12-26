@@ -310,6 +310,7 @@ void loop()
 
 #endif
 
+#if 1
 #include <Arduino.h>
 #include <SPI.h>
 #include <RF24.h>
@@ -368,8 +369,8 @@ int IRQ = 4;
 // int SCK = 13;
 // int MOSI = 11;
 // int MISO = 12;  这几个引脚是硬件固定的，无法更改
-uchar TX_Addr[] = {0x42, 0x42, 0x42, 0x42, 0x42};
-uchar RX_Addr[] = {0x41, 0x41, 0x41, 0x41, 0x41};
+uchar TX_Addr[] = {0x1A, 0x3B, 0x5C, 0x7D, 0x9E};
+uchar RX_Addr[] = {0x1A, 0x3B, 0x5C, 0x7D, 0x9E};
 uchar TX_Buffer[] = {0xfe, 100, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f};
 uchar RX_Buffer[RX_DATA_WITDH];
 char flag = 0;
@@ -513,6 +514,7 @@ void NRF24L01_Check(void)
             break;
         }
     }
+    delay(5);
     if (i == 5)
         Serial.println("NRF24L01 	Initialisation Successful ...");
     else
@@ -542,6 +544,7 @@ uchar nRF24L01_RX_Data(void)
     sta = SPI_R_byte(R_REGISTER + STATUS);
     if (RX_DR)
     {
+        Serial.println("RX_DR");
         digitalWrite(CE, LOW);
         SPI_R_DBuffer(R_RX_PLOAD, RX_Buffer, RX_DATA_WITDH);
         SPI_W_Reg(W_REGISTER + STATUS, 0xff);
@@ -552,6 +555,17 @@ uchar nRF24L01_RX_Data(void)
     }
     else
         return 0;
+}
+
+void NRF24L01_print_reg(void)
+{
+    uint8_t buf[8];
+    for (int i = 0; i < 29; i++)
+    {
+        SPI_R_DBuffer(R_REGISTER + i, buf, 1); // Read 5 Bytes data from NRF
+        printf("Buffer %x:", i);
+        printf("%x \n", buf[0]);
+    }
 }
 
 void setup()
@@ -565,19 +579,20 @@ void setup()
     pinMode(MISO, INPUT);
 
     NRF24L01_Check();
+    NRF24L01_print_reg();
+    nRF24L01_Init();
 }
 
 void loop()
 {
     // put your main code here, to run repeatedly:
     // Serial.println(10);
-    unsigned char i = 0, b = 0;
     unsigned long lastTime = millis();
     delay(1);
-    nRF24L01_Init();
     while (1)
     {
         nRF24L01_Set_RX_Mode();
+
         // delay(4);
         // delayMicroseconds(4);
         if (nRF24L01_RX_Data()) // 当接收到数据时
@@ -585,12 +600,169 @@ void loop()
 
             nRF24L01_Set_TX_Mode(&TX_Buffer[1]); // 发送数据
             nRF24L01_Set_RX_Mode();
+            Serial.println("send data ...");
         }
         // if during 1s no data received, then send data
         if (millis() - lastTime > 5000)
         {
-            Serial.println("already 5s ...");
+            // Serial.println("already 5s ...");
             lastTime = millis();
+            sta = SPI_R_byte(R_REGISTER + STATUS);
+            Serial.println(sta);
         }
     }
 }
+#endif
+
+#if 0
+// SimpleRx - the slave or the receiver
+#include <Arduino.h>
+#include <SPI.h>
+#include <nRF24L01.h>
+#include <RF24.h>
+
+void getData(void);
+void showData(void);
+
+#define CE_PIN 22
+#define CSN_PIN 21
+
+const byte thisSlaveAddress[5] = {0x1A, 0x3B, 0x5C, 0x7D, 0x9E};
+
+RF24 radio(CE_PIN, CSN_PIN);
+
+char dataReceived[10]; // this must match dataToSend in the TX
+bool newData = false;
+
+//===========
+
+void setup()
+{
+
+    Serial.begin(115200);
+
+    Serial.println("SimpleRx Starting");
+    radio.begin();
+    radio.setDataRate(RF24_2MBPS);
+    radio.openReadingPipe(1, thisSlaveAddress);
+    radio.setChannel(40);
+    radio.startListening();
+}
+
+//=============
+
+void loop()
+{
+    getData();
+    showData();
+}
+
+//==============
+
+void getData()
+{
+    if (radio.available())
+    {
+        radio.read(&dataReceived, sizeof(dataReceived));
+        newData = true;
+    }
+}
+
+void showData()
+{
+    if (newData == true)
+    {
+        Serial.print("Data received ");
+        Serial.println(dataReceived);
+        newData = false;
+    }
+}
+
+#endif
+
+#if 0
+// SimpleTx - the master or the transmitter
+#include <Arduino.h>
+#include <SPI.h>
+#include <nRF24L01.h>
+#include <RF24.h>
+
+#define CE_PIN 22
+#define CSN_PIN 21
+
+void updateMessage(void);
+void send(void);
+
+const byte slaveAddress[5] = {0x1A, 0x3B, 0x5C, 0x7D, 0x9E};
+
+RF24 radio(CE_PIN, CSN_PIN); // Create a Radio
+
+char dataToSend[10] = "Message 0";
+char txNum = '0';
+
+unsigned long currentMillis;
+unsigned long prevMillis;
+unsigned long txIntervalMillis = 1000; // send once per second
+
+void setup()
+{
+
+    Serial.begin(115200);
+
+    Serial.println("SimpleTx Starting");
+
+    radio.begin();
+    radio.setDataRate(RF24_2MBPS);
+    radio.setRetries(3, 5); // delay, count
+    radio.setChannel(40);
+    radio.openWritingPipe(slaveAddress);
+}
+
+//====================
+
+void loop()
+{
+    currentMillis = millis();
+    if (currentMillis - prevMillis >= txIntervalMillis)
+    {
+        send();
+        prevMillis = millis();
+    }
+}
+
+//====================
+
+void send()
+{
+
+    bool rslt;
+    rslt = radio.write(&dataToSend, sizeof(dataToSend));
+    // Always use sizeof() as it gives the size as the number of bytes.
+    // For example if dataToSend was an int sizeof() would correctly return 2
+
+    Serial.print("Data Sent ");
+    Serial.print(dataToSend);
+    if (rslt)
+    {
+        Serial.println("  Acknowledge received");
+        updateMessage();
+    }
+    else
+    {
+        Serial.println("  Tx failed");
+    }
+}
+
+//================
+
+void updateMessage()
+{
+    // so you can see that new data is being sent
+    txNum += 1;
+    if (txNum > '9')
+    {
+        txNum = '0';
+    }
+    dataToSend[8] = txNum;
+}
+#endif

@@ -30,3 +30,4 @@
 .\objects\stm32f10x_it.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\objects\stm32f10x_it.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
 .\objects\stm32f10x_it.o: ..\User\USART\bsp_usart.h
+.\objects\stm32f10x_it.o: ..\User\NRF24\bsp_NRF24.h

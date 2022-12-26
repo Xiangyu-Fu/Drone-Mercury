@@ -24,6 +24,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
 #include "bsp_usart.h"
+#include "bsp_NRF24.h"
 
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
@@ -166,6 +167,13 @@ void USART1_IRQHandler(void)
 /**
   * @}
   */ 
-
+void EXTI0_IRQHandler(void)//Nrf2401ÖÐ¶Ï
+{	
+	if(EXTI_GetITStatus(EXTI_Line0) != RESET) 
+	{
+		EXTI_ClearITPendingBit(EXTI_Line0);
+		NRF24L01_IRQ();
+	}
+}
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/

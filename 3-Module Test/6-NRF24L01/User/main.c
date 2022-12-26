@@ -11,8 +11,8 @@
 static uint16_t Battery;
 uint16_t ADC_Value[BUFFER_SIZE];
 extern uint32_t MPU6050_Buffer[14];
-uint8_t NRF24L01_RXDATA[8];
-static uint8_t data[32];
+uint8_t NRF24L01_RXDATA[32];
+//static uint8_t data[32];
 
 static void delay(uint32_t count)
 {
@@ -69,7 +69,8 @@ int main()
 		Debug1_L;
 
 		NRF24L01_Test();
-		delay(20);
+		NRF24L01_print_reg();
+		delay(200);
 		LED3_OFF;
 
 		
