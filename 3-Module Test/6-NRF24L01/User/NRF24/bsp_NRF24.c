@@ -75,14 +75,14 @@ void SPI_NRF_Init(void)
 uint8_t SPI_RW(uint8_t data)
 {
 	uint32_t SPITimeout = SPIT_FLAG_TIMEOUT;
-	while (SPI_I2S_GetFlagStatus(NRF_SPI , SPI_I2S_FLAG_TXE) == RESET) // Wait while Send Buffer Empty
+	while (SPI_I2S_GetFlagStatus(NRF_SPI , SPI_I2S_FLAG_TXE) == RESET) // Wait while Send Bufer Empty
 	{
     if((SPITimeout--) == 0) return SPI_TIMEOUT_UserCallback(0);
   }
 	
 	SPI_I2S_SendData(NRF_SPI , data);
 	
-	while (SPI_I2S_GetFlagStatus(NRF_SPI , SPI_I2S_FLAG_RXNE) == RESET) // Wait while Receive Buffer Empty
+	while (SPI_I2S_GetFlagStatus(NRF_SPI , SPI_I2S_FLAG_RXNE) == RESET) // Wait while Receive Bufer Empty
   {
     if((SPITimeout--) == 0) return SPI_TIMEOUT_UserCallback(1);
   }
@@ -128,7 +128,7 @@ uint8_t NRF_Read_Reg(uint8_t reg)
 }
 
  /**
-  * @brief  NRF Buffer Write
+  * @brief  NRF Bufer Write
   * @param  reg   : Register Addr
 	* @param  *pBuf : Data
 	* @param  uchars: The length of Data
@@ -153,14 +153,14 @@ uint8_t NRF_Write_Buf(uint8_t reg, uint8_t * pBuf, uint8_t uchars)
 }
 
  /**
-  * @brief  NRF Buffer Read
+  * @brief  NRF Bufer Read
   * @param  reg   : Register Addr
-	* @param  *pBuf : Read Data Buffer
+	* @param  *pBuf : Read Data Bufer
 	* @param  uchars: The length of Data
   * @retval SPI status
   */
 
-uint8_t NRF_Read_Buf(uint8_t reg, uint8_t * pBuf, uint8_t uchars)
+static uint8_t NRF_Read_Buf(uint8_t reg, uint8_t * pBuf, uint8_t uchars)
 {
 	 uint8_t i;
 	 uint8_t status;
@@ -178,6 +178,7 @@ uint8_t NRF_Read_Buf(uint8_t reg, uint8_t * pBuf, uint8_t uchars)
 	 return status;	 
 }
 
+
 /*---------------NRF24L01 Operations----------------*/
  /**
   * @brief  NRF24L01 Initialisation Function
@@ -189,8 +190,8 @@ void NRF24L01_Init(uint8_t Channelx, uint8_t Mode)
 {
 	NRF_CE_L;
 	
-	NRF_Write_Reg(FLUSH_TX,0xff);  // Clean Send Buffer
-	NRF_Write_Reg(FLUSH_RX,0xff);  // Clean Receive Buffer
+	NRF_Write_Reg(FLUSH_TX,0xff);  // Clean Send Bufer
+	NRF_Write_Reg(FLUSH_RX,0xff);  // Clean Receive Bufer
 	
 	NRF_Write_Buf(NRF_WRITE_REG + TX_ADDR, TX_ADDRESS, 5);  		// Write TX Addr
 	NRF_Write_Buf(NRF_WRITE_REG + RX_ADDR_P0, RX_ADDRESS, 5);  	// Write RX Addr
@@ -280,19 +281,20 @@ void NRF_Send_TX(uint8_t * tx_buf, uint8_t len)
 	NRF_CE_H;							//Set CE high to start send, CE high for a minimum duration of 10us
 	while(SPI_NRF_IRQ_Read);
 	
-	
 	uint8_t status = NRF_Read_Reg(NRF_READ_REG + NRFRegSTATUS);
 	
 	if(status & (1<<MAX_RT)) //Maximum number of re-send interruptions reached
 	{
 		if(status & (1<<TX_FULL))//TX FIFO overflow
 		{
-			NRF_Write_Reg(FLUSH_TX,0xff); //clean send buffer
+			NRF_Write_Reg(FLUSH_TX,0xff); //clean send Bufer
+			//printf("clean send buffer");
 		}
 	}
 	if(status &(1<<TX_DS))//send finished
 	{	
 		NRF24L01_Set_RX();//set to receive mode
+		printf("set to receive mode");
 	}
 	
 }
@@ -307,4 +309,51 @@ static  uint16_t SPI_TIMEOUT_UserCallback(uint8_t errorCode)
   // 
   printf("SPI wait overtime!errorCode = %d",errorCode);
   return 0;
+}
+
+static void NRF24L01_Analyse(void)
+{
+	uint8_t sum = 0,i;
+	uint8_t len = NRF24L01_RXDATA[3] + 5;
+	//uint8_t i=0;
+
+	//printf(" receive some params %d", NRF24L01_RXDATA[5]);
+	for(i=3;i<len;i++)
+		sum ^= NRF24L01_RXDATA[i];
+	if( sum!=NRF24L01_RXDATA[len] )	return;	//数据校验
+	if( NRF24L01_RXDATA[0] != '$' )	return;	//数据校验
+	if( NRF24L01_RXDATA[1] != 'M' )	return;	//数据校验
+	if( NRF24L01_RXDATA[2] != '>' )	return;	//MWC发送给上位机的标志
+}
+
+static void nRF24L01_Set_TX_Mode(uint8_t *TX_Data)
+{
+    NRF_CE_L;                                         // 待机（写寄存器之前一定要进入待机模式或掉电模式）
+    NRF_Write_Buf(NRF_WRITE_REG + TX_ADDR, TX_ADDRESS, 5);    /*写寄存器指令+接收节点地址+地址宽度*/
+    NRF_Write_Buf(NRF_WRITE_REG + RX_ADDR_P0, TX_ADDRESS, 5); /*为了接收设备应答信号，接收通道0地址与发送地址相同*/
+    NRF_Write_Buf(WR_TX_PLOAD, TX_Data, 32);              /*写有效数据地址+有效数据+有效数据宽度*/
+
+    NRF_Write_Reg(NRF_WRITE_REG + EN_AA, 0x01);                            /*接收通道0自动应答*/
+    NRF_Write_Reg(NRF_WRITE_REG + EN_RXADDR, 0x01);                       /*使能接收通道0*/
+    NRF_Write_Reg(NRF_WRITE_REG + SETUP_RETR, 0x1a);                       /*自动重发延时250US+86US，重发10次*/
+    NRF_Write_Reg(NRF_WRITE_REG + RF_CH, 40);                              /*(2400)MHZ射频通道* 40是信道*/
+    NRF_Write_Reg(NRF_WRITE_REG + RF_SETUP, 0x0f);                         /*1Mbps速率,发射功率:0DBM,低噪声放大器增益*/
+    NRF_Write_Reg(NRF_WRITE_REG + CONFIG, 0x0e);                           /*发送模式,上电,16位CRC校验,CRC使能*/
+    NRF_CE_H;
+}
+
+void NRF24L01_Test(void)
+{
+	uint8_t test_data[8] = {0xfe, 100, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f};
+	nRF24L01_Set_TX_Mode(test_data);
+//	NRF24L01_Analyse();
+//	//while(SPI_NRF_IRQ_Read);
+//	//uint8_t status = NRF_Read_Reg(NRF_READ_REG + NRFRegSTATUS);
+//	NRF_Read_Buf(RD_RX_PLOAD,NRF24L01_RXDATA,32);
+//	for(int i=0;i<32;i++)
+//	{
+//		if(NRF24L01_RXDATA[i] != 0)	
+//		printf("%d", NRF24L01_RXDATA[i]);
+//	}
+//  //NRF_Write_Reg(NRF_WRITE_REG + NRFRegSTATUS, status);
 }

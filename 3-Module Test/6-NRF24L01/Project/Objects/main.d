@@ -29,9 +29,9 @@
 .\objects\main.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\objects\main.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\main.o: ..\User\NRF24\bsp_NRF24.h
 .\objects\main.o: ..\User\LED\bsp_led.h
 .\objects\main.o: ..\User\USART\bsp_usart.h
 .\objects\main.o: ..\User\ADC\bsp_adc.h
 .\objects\main.o: ..\User\PWM\bsp_PWM.h
 .\objects\main.o: ..\User\MPU\bsp_MPU.h
-.\objects\main.o: ..\User\NRF24\bsp_NRF24.h

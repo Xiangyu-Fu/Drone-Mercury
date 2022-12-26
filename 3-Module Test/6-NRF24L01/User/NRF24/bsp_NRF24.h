@@ -35,21 +35,26 @@
 #define SPIT_FLAG_TIMEOUT         ((uint32_t)0x1000)
 #define SPIT_LONG_TIMEOUT         ((uint32_t)(10 * SPIT_FLAG_TIMEOUT))
 
+
+// Definitions of NRF
+extern uint8_t NRF24L01_RXDATA[8];
+extern uint8_t NRF24L01_TXDATA[8];
+static uint8_t TX_ADDRESS[5] = {0x41, 0x41, 0x41, 0x41, 0x41};  // local Addr
+static uint8_t RX_ADDRESS[5] = {0x42, 0x42, 0x42, 0x42, 0x42};  // Receive Addr
+
+
 // Global function definitions
 void SPI_NRF_Init(void);
 void NRF24L01_Init(uint8_t Channelx, uint8_t Mode);
 void NRF24L01_Check(void);
 void NRF_Send_TX(uint8_t * tx_buf, uint8_t len);
+void NRF24L01_Test(void);
 
 uint8_t NRF_Read_Reg(uint8_t reg);
 uint8_t NRF_Write_Reg(uint8_t reg, uint8_t value);
-uint8_t NRF_Read_Buff(uint8_t reg, uint8_t *pBuf, uint8_t uchars);
+uint8_t NRF_Read_Buf(uint8_t reg, uint8_t *pBuf, uint8_t uchars);
 
-// Definitions of NRF
-extern uint8_t NRF24L01_RXDATA[32];
-extern uint8_t NRF24L01_TXDATA[32];
-static uint8_t TX_ADDRESS[5] = {0x1A, 0x3B, 0x5C, 0x7D, 0x9E};  // local Addr
-static uint8_t RX_ADDRESS[5] = {0x1A, 0x3B, 0x5C, 0x7D, 0x9E};  // Receive Addr
+
 
 
 /********************************************
