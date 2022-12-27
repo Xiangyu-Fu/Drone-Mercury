@@ -10,12 +10,30 @@ static uint16_t SPI_TIMEOUT_UserCallback(uint8_t errorCode);
   * @param  void
   * @retval void
   */
+
+static void Nvic_Init(void)
+{
+	NVIC_InitTypeDef NVIC_InitStructure;
+	
+	//NVIC_PriorityGroup 
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//优先级分组
+
+	//Nrf2401中断
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+}
+
 	
 void SPI_NRF_Init(void)
 {
   SPI_InitTypeDef  SPI_InitStructure;
   GPIO_InitTypeDef GPIO_InitStructure;
 	EXTI_InitTypeDef EXTI_InitStructure;
+
+	Nvic_Init();
 	
 	/* Enable Clocks */
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
@@ -367,7 +385,7 @@ void nRF24L01_Set_RX_Mode(void)
 void NRF24L01_Test(void)
 {
 	//nRF24L01_Set_TX_Mode(test_data);
-	NRF24L01_IRQ();
+//	NRF24L01_IRQ();
 
 	NRF24L01_Analyse();
 //	NRF_Write_Reg(FLUSH_RX,0xff);//清空接收缓冲区

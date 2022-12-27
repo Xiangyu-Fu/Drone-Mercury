@@ -27,20 +27,22 @@ Project File Date:  12/17/2022
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
+compiling stm32f10x_it.c...
+compiling main.c...
 compiling bsp_NRF24.c...
-..\User\NRF24\bsp_NRF24.c(311): warning:  #177-D: variable "sum"  was declared but never referenced
+..\User\NRF24\bsp_NRF24.c(329): warning:  #177-D: variable "sum"  was declared but never referenced
   	uint8_t sum = 0,i;
-..\User\NRF24\bsp_NRF24.c(311): warning:  #177-D: variable "i"  was declared but never referenced
+..\User\NRF24\bsp_NRF24.c(329): warning:  #177-D: variable "i"  was declared but never referenced
   	uint8_t sum = 0,i;
-..\User\NRF24\bsp_NRF24.c(312): warning:  #177-D: variable "len"  was declared but never referenced
+..\User\NRF24\bsp_NRF24.c(330): warning:  #177-D: variable "len"  was declared but never referenced
   	uint8_t len = NRF24L01_RXDATA[3] + 5;
-..\User\NRF24\bsp_NRF24.c(435): warning:  #1-D: last line of file ends without a newline
+..\User\NRF24\bsp_NRF24.c(453): warning:  #1-D: last line of file ends without a newline
   }
-..\User\NRF24\bsp_NRF24.c(335): warning:  #177-D: function "nRF24L01_Set_TX_Mode"  was declared but never referenced
+..\User\NRF24\bsp_NRF24.c(353): warning:  #177-D: function "nRF24L01_Set_TX_Mode"  was declared but never referenced
   static void nRF24L01_Set_TX_Mode(uint8_t *TX_Data)
 ..\User\NRF24\bsp_NRF24.c: 5 warnings, 0 errors
 linking...
-Program Size: Code=4512 RO-data=268 RW-data=36 ZI-data=1124  
+Program Size: Code=4552 RO-data=268 RW-data=36 ZI-data=1124  
 FromELF: creating hex file...
 ".\Objects\STAN-103.axf" - 0 Error(s), 5 Warning(s).
 

@@ -47,15 +47,6 @@
   * @retval None
   */
 
-void EXTI0_IRQHandler(void)//Nrf2401ÖÐ¶Ï
-{	
-	if(EXTI_GetITStatus(EXTI_Line0) != RESET) 
-	{
-		EXTI_ClearITPendingBit(EXTI_Line0);
-		NRF24L01_IRQ();
-	}
-}
-
 void NMI_Handler(void)
 {
 }
@@ -155,6 +146,16 @@ void USART1_IRQHandler(void)
 	{
 		 ucTemp = USART_ReceiveData(USART1);
 		 Usart_SendByte(USART1, ucTemp);
+	}
+}
+
+//Nrf2401ÖÐ¶Ï
+void EXTI0_IRQHandler(void)
+{	
+	if(EXTI_GetITStatus(EXTI_Line0) != RESET) 
+	{
+		EXTI_ClearITPendingBit(EXTI_Line0);
+		NRF24L01_IRQ();
 	}
 }
 

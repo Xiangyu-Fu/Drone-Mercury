@@ -58,6 +58,8 @@ uint8_t NRF_Read_Buf(uint8_t reg, uint8_t *pBuf, uint8_t uchars);
 
 
 
+#define KEY2_IRQHandler            EXTI15_10_IRQHandler
+
 /********************************************
          2. Definitions of NRF24L01
 ********************************************/
