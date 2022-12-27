@@ -72,11 +72,7 @@ void ReadJoystickValue(void)
     // Print the value to serial monitor
     // Serial.print("Potentiometer value: ");
     // Serial.print(joy_left_x_value);
-    // Serial.println(joy_left_x_value);
-
-    // uint16_t test = 0;
-    // test = dataToSend[5] | (dataToSend[6] << 8);
-    // Serial.println(test);
+    // Serial.println(joy_left_y_value);
 }
 
 void setup()
@@ -124,26 +120,26 @@ void loop()
 #else
         ReadJoystickValue();             // read joystick value
         nRF24L01_Set_TX_Mode(TX_Buffer); // transmit data
-        Serial.println(nrf_sta);
+        // Serial.println(nrf_sta);
         if (Check_Ack()) // check whether the data is received
         {
             lastTime = millis();
             Check_Ack();
-            Serial.println("send data ...");
+            // Serial.println("send data ...");
         }
 
 #endif
         // if during 1s no data received, then send data
-        if (millis() - lastTime > 5000)
-        {
-            // Serial.println("already 5s ...");
-            lastTime = millis();
-            uchar sta_op = SPI_R_byte(R_REGISTER + STATUS);
-            // Serial.print("sta_op: ");
-            // Serial.println(sta_op);
-            // Serial.println("Have not received information for 5s,");
-            // Serial.println("Please check the connection of NRF24L01 ...");
-        }
-        delay(300);
+        // if (millis() - lastTime > 5000)
+        // {
+        //     // Serial.println("already 5s ...");
+        //     lastTime = millis();
+        //     // uchar sta_op = SPI_R_byte(R_REGISTER + STATUS);
+        //     // Serial.print("sta_op: ");
+        //     // Serial.println(sta_op);
+        //     // Serial.println("Have not received information for 5s,");
+        //     // Serial.println("Please check the connection of NRF24L01 ...");
+        // }
+        delay(10);
     }
 }

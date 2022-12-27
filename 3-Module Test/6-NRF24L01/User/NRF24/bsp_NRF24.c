@@ -310,15 +310,26 @@ static void NRF24L01_Analyse(void)
 {
 	uint8_t sum = 0,i;
 	uint8_t len = NRF24L01_RXDATA[3] + 5;
-	//uint8_t i=0;
+	int16_t joy_left_x_value = 0;
+	int16_t joy_left_y_value = 0;
 
-	//printf(" receive some params %d", NRF24L01_RXDATA[5]);
-	for(i=3;i<len;i++)
-		sum ^= NRF24L01_RXDATA[i];
-	if( sum!=NRF24L01_RXDATA[len] )	return;	//数据校验
-	if( NRF24L01_RXDATA[0] != '$' )	return;	//数据校验
-	if( NRF24L01_RXDATA[1] != 'M' )	return;	//数据校验
-	if( NRF24L01_RXDATA[2] != '>' )	return;	//MWC发送给上位机的标志
+//	for(i=3;i<len;i++)
+//		sum ^= NRF24L01_RXDATA[i];
+//	if( sum!=NRF24L01_RXDATA[len] )	return;	//数据校验
+//	if( NRF24L01_RXDATA[0] != '$' )	return;	//数据校验
+//	if( NRF24L01_RXDATA[1] != 'M' )	return;	//数据校验
+//	if( NRF24L01_RXDATA[2] != '<' )	return;	//MWC发送给上位机的标志
+
+	joy_left_x_value = joy_left_x_value | NRF24L01_RXDATA[6];
+	joy_left_x_value = joy_left_x_value << 8;
+	joy_left_x_value = joy_left_x_value | NRF24L01_RXDATA[5];
+	printf("%d, ", joy_left_x_value);
+
+	joy_left_y_value = joy_left_y_value | NRF24L01_RXDATA[8];
+	joy_left_y_value = joy_left_y_value << 8;
+	joy_left_y_value = joy_left_y_value | NRF24L01_RXDATA[7];
+	printf("%d \n", joy_left_y_value);
+	
 }
 
 static void nRF24L01_Set_TX_Mode(uint8_t *TX_Data)
@@ -355,11 +366,10 @@ void nRF24L01_Set_RX_Mode(void)
 
 void NRF24L01_Test(void)
 {
-	uint8_t test_data[32] = {0xfe, 100, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f};
 	//nRF24L01_Set_TX_Mode(test_data);
-	printf("%d", NRF24L01_RXDATA[0]);
-	NRF24L01_print_reg();
 	NRF24L01_IRQ();
+
+	NRF24L01_Analyse();
 //	NRF_Write_Reg(FLUSH_RX,0xff);//清空接收缓冲区
 //	NRF_Write_Reg(NRF_WRITE_REG + NRFRegSTATUS, 0xff);
 //	uint8_t status = NRF_Read_Reg(NRF_READ_REG + NRFRegSTATUS);
@@ -397,7 +407,6 @@ void NRF24L01_print_reg(void)
 void NRF24L01_IRQ(void)	
 {
 	uint8_t status = NRF_Read_Reg(NRF_READ_REG + NRFRegSTATUS);
-	printf("IRQ received!");
 	if(status & (1<<RX_DR))//接收中断
 	{	
 		uint8_t rx_len = NRF_Read_Reg(R_RX_PL_WID);

@@ -70,7 +70,7 @@ int main()
 
 		NRF24L01_Test();
 		//NRF24L01_print_reg();
-		delay(200);
+		delay(20);
 		LED3_OFF;
 
 		
