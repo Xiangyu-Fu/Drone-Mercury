@@ -377,6 +377,16 @@ char flag = 0;
 int data_x;
 unsigned long df = 0;
 unsigned long t = 0;
+
+/* Parameters for the Joystick */
+// Potentiometer is connected to GPIO 34
+const int joy_left_x_Pin = 34;
+const int joy_left_y_Pin = 35;
+
+// variable for storing the potentiometer value
+int16_t joy_left_x_value = 0;
+int16_t joy_left_y_value = 0;
+
 void nRF24L01_Init(void)
 {
     delay(2);
@@ -544,7 +554,6 @@ uchar nRF24L01_RX_Data(void)
     sta = SPI_R_byte(R_REGISTER + STATUS);
     if (RX_DR)
     {
-        Serial.println("RX_DR");
         digitalWrite(CE, LOW);
         SPI_R_DBuffer(R_RX_PLOAD, RX_Buffer, RX_DATA_WITDH);
         SPI_W_Reg(W_REGISTER + STATUS, 0xff);
@@ -568,6 +577,31 @@ void NRF24L01_print_reg(void)
     }
 }
 
+void ReadJoystickValue(void)
+{
+    // Reading potentiometer value
+    joy_left_x_value = analogRead(joy_left_x_Pin);
+    joy_left_y_value = analogRead(joy_left_y_Pin);
+
+    TX_Buffer[0] = '$';
+    TX_Buffer[1] = 'M';
+    TX_Buffer[2] = '<';
+    TX_Buffer[3] = 'A';
+    TX_Buffer[5] = joy_left_x_value & 0xFF;
+    TX_Buffer[6] = (joy_left_x_value >> 8) & 0xFF;
+    TX_Buffer[7] = joy_left_y_value & 0xFF;
+    // TX_Buffer[8] = (joy_left_y_value >> 8) & 0xFF;
+
+    // Print the value to serial monitor
+    // Serial.print("Potentiometer value: ");
+    // Serial.print(joy_left_x_value);
+    // Serial.println(joy_left_x_value);
+
+    // uint16_t test = 0;
+    // test = dataToSend[5] | (dataToSend[6] << 8);
+    // Serial.println(test);
+}
+
 void setup()
 {
     // put your setup code here, to run once:
@@ -579,7 +613,8 @@ void setup()
     pinMode(MISO, INPUT);
 
     NRF24L01_Check();
-    NRF24L01_print_reg();
+    // // check the register value of NRF24L01
+    // NRF24L01_print_reg();
     nRF24L01_Init();
 }
 
@@ -592,15 +627,15 @@ void loop()
     while (1)
     {
         nRF24L01_Set_RX_Mode();
-
         // delay(4);
         // delayMicroseconds(4);
         if (nRF24L01_RX_Data()) // 当接收到数据时
         {
-
-            nRF24L01_Set_TX_Mode(&TX_Buffer[1]); // 发送数据
-            nRF24L01_Set_RX_Mode();
+            ReadJoystickValue();                 // read joystick value
+            nRF24L01_Set_TX_Mode(&TX_Buffer[1]); // transmit data
+            nRF24L01_Set_RX_Mode();              // change to transmit mode
             Serial.println("send data ...");
+            nRF24L01_RX_Data(); // clear RX_DR or TX_DS or MAX_RT interrupt flag
         }
         // if during 1s no data received, then send data
         if (millis() - lastTime > 5000)
@@ -610,159 +645,7 @@ void loop()
             sta = SPI_R_byte(R_REGISTER + STATUS);
             Serial.println(sta);
         }
+        delayMicroseconds(100);
     }
-}
-#endif
-
-#if 0
-// SimpleRx - the slave or the receiver
-#include <Arduino.h>
-#include <SPI.h>
-#include <nRF24L01.h>
-#include <RF24.h>
-
-void getData(void);
-void showData(void);
-
-#define CE_PIN 22
-#define CSN_PIN 21
-
-const byte thisSlaveAddress[5] = {0x1A, 0x3B, 0x5C, 0x7D, 0x9E};
-
-RF24 radio(CE_PIN, CSN_PIN);
-
-char dataReceived[10]; // this must match dataToSend in the TX
-bool newData = false;
-
-//===========
-
-void setup()
-{
-
-    Serial.begin(115200);
-
-    Serial.println("SimpleRx Starting");
-    radio.begin();
-    radio.setDataRate(RF24_2MBPS);
-    radio.openReadingPipe(1, thisSlaveAddress);
-    radio.setChannel(40);
-    radio.startListening();
-}
-
-//=============
-
-void loop()
-{
-    getData();
-    showData();
-}
-
-//==============
-
-void getData()
-{
-    if (radio.available())
-    {
-        radio.read(&dataReceived, sizeof(dataReceived));
-        newData = true;
-    }
-}
-
-void showData()
-{
-    if (newData == true)
-    {
-        Serial.print("Data received ");
-        Serial.println(dataReceived);
-        newData = false;
-    }
-}
-
-#endif
-
-#if 0
-// SimpleTx - the master or the transmitter
-#include <Arduino.h>
-#include <SPI.h>
-#include <nRF24L01.h>
-#include <RF24.h>
-
-#define CE_PIN 22
-#define CSN_PIN 21
-
-void updateMessage(void);
-void send(void);
-
-const byte slaveAddress[5] = {0x1A, 0x3B, 0x5C, 0x7D, 0x9E};
-
-RF24 radio(CE_PIN, CSN_PIN); // Create a Radio
-
-char dataToSend[10] = "Message 0";
-char txNum = '0';
-
-unsigned long currentMillis;
-unsigned long prevMillis;
-unsigned long txIntervalMillis = 1000; // send once per second
-
-void setup()
-{
-
-    Serial.begin(115200);
-
-    Serial.println("SimpleTx Starting");
-
-    radio.begin();
-    radio.setDataRate(RF24_2MBPS);
-    radio.setRetries(3, 5); // delay, count
-    radio.setChannel(40);
-    radio.openWritingPipe(slaveAddress);
-}
-
-//====================
-
-void loop()
-{
-    currentMillis = millis();
-    if (currentMillis - prevMillis >= txIntervalMillis)
-    {
-        send();
-        prevMillis = millis();
-    }
-}
-
-//====================
-
-void send()
-{
-
-    bool rslt;
-    rslt = radio.write(&dataToSend, sizeof(dataToSend));
-    // Always use sizeof() as it gives the size as the number of bytes.
-    // For example if dataToSend was an int sizeof() would correctly return 2
-
-    Serial.print("Data Sent ");
-    Serial.print(dataToSend);
-    if (rslt)
-    {
-        Serial.println("  Acknowledge received");
-        updateMessage();
-    }
-    else
-    {
-        Serial.println("  Tx failed");
-    }
-}
-
-//================
-
-void updateMessage()
-{
-    // so you can see that new data is being sent
-    txNum += 1;
-    if (txNum > '9')
-    {
-        txNum = '0';
-    }
-    dataToSend[8] = txNum;
 }
 #endif
