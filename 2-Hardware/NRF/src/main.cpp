@@ -134,15 +134,15 @@ void loop()
 
 #endif
         // if during 1s no data received, then send data
-        if (millis() - lastTime > 2000)
+        if (millis() - lastTime > 5000)
         {
             // Serial.println("already 5s ...");
             lastTime = millis();
             uchar sta_op = SPI_R_byte(R_REGISTER + STATUS);
-            Serial.print("sta_op: ");
-            Serial.println(sta_op);
-            Serial.println("Have not received information for 5s,");
-            Serial.println("Please check the connection of NRF24L01 ...");
+            // Serial.print("sta_op: ");
+            // Serial.println(sta_op);
+            // Serial.println("Have not received information for 5s,");
+            // Serial.println("Please check the connection of NRF24L01 ...");
         }
         delay(300);
     }

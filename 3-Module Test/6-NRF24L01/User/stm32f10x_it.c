@@ -46,6 +46,16 @@
   * @param  None
   * @retval None
   */
+
+void EXTI0_IRQHandler(void)//Nrf2401ÖÐ¶Ï
+{	
+	if(EXTI_GetITStatus(EXTI_Line0) != RESET) 
+	{
+		EXTI_ClearITPendingBit(EXTI_Line0);
+		NRF24L01_IRQ();
+	}
+}
+
 void NMI_Handler(void)
 {
 }
@@ -167,13 +177,6 @@ void USART1_IRQHandler(void)
 /**
   * @}
   */ 
-void EXTI0_IRQHandler(void)//Nrf2401ÖÐ¶Ï
-{	
-	if(EXTI_GetITStatus(EXTI_Line0) != RESET) 
-	{
-		EXTI_ClearITPendingBit(EXTI_Line0);
-		NRF24L01_IRQ();
-	}
-}
+
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/

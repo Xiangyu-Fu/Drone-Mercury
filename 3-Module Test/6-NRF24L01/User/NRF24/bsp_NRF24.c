@@ -46,7 +46,7 @@ void SPI_NRF_Init(void)
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
   GPIO_Init(NRF_IRQ_Port, &GPIO_InitStructure);
 
-
+	//irq
 	GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource0);
 	EXTI_InitStructure.EXTI_Line=EXTI_Line0;
 	EXTI_InitStructure.EXTI_Mode=EXTI_Mode_Interrupt;//外部中断
@@ -359,8 +359,9 @@ void NRF24L01_Test(void)
 	//nRF24L01_Set_TX_Mode(test_data);
 	printf("%d", NRF24L01_RXDATA[0]);
 	NRF24L01_print_reg();
-	NRF_Write_Reg(FLUSH_RX,0xff);//清空接收缓冲区
-	NRF_Write_Reg(NRF_WRITE_REG + NRFRegSTATUS, 0xff);
+	NRF24L01_IRQ();
+//	NRF_Write_Reg(FLUSH_RX,0xff);//清空接收缓冲区
+//	NRF_Write_Reg(NRF_WRITE_REG + NRFRegSTATUS, 0xff);
 //	uint8_t status = NRF_Read_Reg(NRF_READ_REG + NRFRegSTATUS);
 //	if(status & (1<<MAX_RT))//达到最多次重发中断
 //	{
@@ -396,7 +397,7 @@ void NRF24L01_print_reg(void)
 void NRF24L01_IRQ(void)	
 {
 	uint8_t status = NRF_Read_Reg(NRF_READ_REG + NRFRegSTATUS);
-	
+	printf("IRQ received!");
 	if(status & (1<<RX_DR))//接收中断
 	{	
 		uint8_t rx_len = NRF_Read_Reg(R_RX_PL_WID);
