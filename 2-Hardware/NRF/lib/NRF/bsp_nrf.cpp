@@ -121,9 +121,6 @@ uchar Check_Rec(void)
     return status;
 }
 
-
-
-
 void nRF24L01_Set_RX_Mode(void)
 {
     digitalWrite(CE, LOW); // 待机

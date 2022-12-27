@@ -11,9 +11,11 @@ int IRQ = 4;
 // int SCK = 13;
 // int MOSI = 11;
 // int MISO = 12;  这几个引脚是硬件固定的，无法更改
+
+// declare address and transmited data
 uchar TX_Addr[] = {0x1A, 0x3B, 0x5C, 0x7D, 0x9E};
 uchar RX_Addr[] = {0x1A, 0x3B, 0x5C, 0x7D, 0x9E};
-uchar TX_Buffer[] = {0xfe, 100, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f};
+uchar TX_Buffer[32];
 uchar RX_Buffer[RX_DATA_WITDH];
 char flag = 0;
 int data_x;
@@ -65,7 +67,7 @@ void ReadJoystickValue(void)
     TX_Buffer[5] = joy_left_x_value & 0xFF;
     TX_Buffer[6] = (joy_left_x_value >> 8) & 0xFF;
     TX_Buffer[7] = joy_left_y_value & 0xFF;
-    // TX_Buffer[8] = (joy_left_y_value >> 8) & 0xFF;
+    TX_Buffer[8] = (joy_left_y_value >> 8) & 0xFF;
 
     // Print the value to serial monitor
     // Serial.print("Potentiometer value: ");
@@ -106,12 +108,19 @@ void loop()
         // delayMicroseconds(4);
         if (nRF24L01_RX_Data()) // 当接收到数据时
         {
+            for (int i = 0; i < RX_DATA_WITDH; i++)
+            {
+                Serial.print(RX_Buffer[i]);
+                Serial.println(" ");
+            }
             ReadJoystickValue();                 // read joystick value
-            nRF24L01_Set_TX_Mode(&TX_Buffer[1]); // transmit data
+            nRF24L01_Set_TX_Mode(&TX_Buffer[0]); // transmit data
             nRF24L01_Set_RX_Mode();              // change to transmit mode
             Serial.println("send data ...");
             nRF24L01_RX_Data(); // clear RX_DR or TX_DS or MAX_RT interrupt flag
+            lastTime = millis();
         }
+
         // if during 1s no data received, then send data
         if (millis() - lastTime > 5000)
         {
@@ -119,7 +128,7 @@ void loop()
             lastTime = millis();
             uchar sta_op = SPI_R_byte(R_REGISTER + STATUS);
             if (sta_op == 0x0e)
-                Serial.println("RX_FIFO is empty ...");
+                Serial.println("Have not received information for 5s ...");
         }
         delayMicroseconds(100);
     }

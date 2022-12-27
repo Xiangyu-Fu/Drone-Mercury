@@ -339,7 +339,7 @@ static void nRF24L01_Set_TX_Mode(uint8_t *TX_Data)
 
 void NRF24L01_Test(void)
 {
-	uint8_t test_data[8] = {0xfe, 100, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f};
+	uint8_t test_data[32] = {0xfe, 100, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f};
 	nRF24L01_Set_TX_Mode(test_data);
 
 	uint8_t status = NRF_Read_Reg(NRF_READ_REG + NRFRegSTATUS);
