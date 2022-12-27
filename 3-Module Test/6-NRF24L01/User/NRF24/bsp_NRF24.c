@@ -384,31 +384,7 @@ void nRF24L01_Set_RX_Mode(void)
 
 void NRF24L01_Test(void)
 {
-	//nRF24L01_Set_TX_Mode(test_data);
-//	NRF24L01_IRQ();
-
 	NRF24L01_Analyse();
-//	NRF_Write_Reg(FLUSH_RX,0xff);//清空接收缓冲区
-//	NRF_Write_Reg(NRF_WRITE_REG + NRFRegSTATUS, 0xff);
-//	uint8_t status = NRF_Read_Reg(NRF_READ_REG + NRFRegSTATUS);
-//	if(status & (1<<MAX_RT))//达到最多次重发中断
-//	{
-//		if(status & (1<<TX_FULL))//TX FIFO 溢出
-//		{
-//			NRF_Write_Reg(FLUSH_TX,0xff);//清空发送缓冲区
-//			NRF_Write_Reg(NRF_WRITE_REG + NRFRegSTATUS, status);//清除中断标志位	
-//		}
-//	}
-//	NRF24L01_Analyse();
-//	//while(SPI_NRF_IRQ_Read);
-//	//uint8_t status = NRF_Read_Reg(NRF_READ_REG + NRFRegSTATUS);
-//	NRF_Read_Buf(RD_RX_PLOAD,NRF24L01_RXDATA,32);
-//	for(int i=0;i<32;i++)
-//	{
-//		if(NRF24L01_RXDATA[i] != 0)	
-//		printf("%d", NRF24L01_RXDATA[i]);
-//	}
-//  //NRF_Write_Reg(NRF_WRITE_REG + NRFRegSTATUS, status);
 }
 
 void NRF24L01_print_reg(void)

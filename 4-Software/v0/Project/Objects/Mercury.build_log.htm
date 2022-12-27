@@ -3,73 +3,264 @@
 <pre>
 <h1>礦ision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: μVision V5.15
-Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information:  ,   , LIC=YA39H-WJFL0-JJH6S-L27VD-92MWZ-P5LW1
+IDE-Version: μVision V5.36.0.0
+Copyright (C) 2021 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information:  ,  , LIC=HN0AE-5CQSF-EVN1R-K4XY7-Y7SGY-0IRVG
  
 Tool Versions:
-Toolchain:       MDK-ARM Standard  Version: 5.15.0
+Toolchain:       MDK-ARM Plus  Version: 5.36.0.0
 Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
-C Compiler:      Armcc.exe V5.05 update 2 (build 169)
-Assembler:       Armasm.exe V5.05 update 2 (build 169)
-Linker/Locator:  ArmLink.exe V5.05 update 2 (build 169)
-Library Manager: ArmAr.exe V5.05 update 2 (build 169)
-Hex Converter:   FromElf.exe V5.05 update 2 (build 169)
-CPU DLL:         SARMCM3.DLL V5.15.0
-Dialog DLL:      DCM.DLL V1.13.2.0
-Target DLL:      CMSIS_AGDI.dll V1.21.12.0
-Dialog DLL:      TCM.DLL V1.14.5.0
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.36.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      CMSIS_AGDI.dll V1.33.0.0
+Dialog DLL:      TCM.DLL V1.53.0.0
  
 <h2>Project:</h2>
 E:\Website\Drone-Mercury\4-Software\v0\Project\STAN-103.uvprojx
-Project File Date:  04/14/2022
+Project File Date:  09/13/2022
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
 assembling startup_stm32f10x_md.s...
+compiling core_cm3.c...
+compiling misc.c...
+compiling stm32f10x_bkp.c...
+compiling system_stm32f10x.c...
+compiling stm32f10x_cec.c...
+compiling stm32f10x_can.c...
+compiling stm32f10x_adc.c...
+compiling stm32f10x_crc.c...
+compiling stm32f10x_dac.c...
+compiling stm32f10x_dbgmcu.c...
+compiling stm32f10x_dma.c...
+compiling stm32f10x_exti.c...
+compiling stm32f10x_flash.c...
+compiling stm32f10x_fsmc.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_iwdg.c...
+compiling stm32f10x_pwr.c...
+compiling stm32f10x_rtc.c...
+compiling stm32f10x_i2c.c...
+compiling stm32f10x_sdio.c...
+compiling stm32f10x_spi.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_wwdg.c...
+compiling EEPROM.c...
+compiling stm32f10x_it.c...
+compiling stm32f10x_usart.c...
+compiling Struct.c...
 compiling main.c...
 ..\User\MPU\IMU.h(16): warning:  #1-D: last line of file ends without a newline
   #endif
 ..\User\Utility\Control.h(19): warning:  #1-D: last line of file ends without a newline
   #endif
 ..\User\main.c: 2 warnings, 0 errors
+compiling stm32f10x_tim.c...
+compiling Utility.c...
+compiling Protocol.c...
+..\User\Utility\Protocol.c(130): error:  #20: identifier "I2C_Erro" is undefined
+  	data[24] =  I2C_Erro & 0xFF;
+..\User\Utility\Protocol.c(138): warning:  #1-D: last line of file ends without a newline
+  }
+..\User\Utility\Protocol.c: 1 warning, 1 error
+compiling Maths.c...
+..\User\Maths.c(44): warning:  #1-D: last line of file ends without a newline
+  }
+..\User\Maths.c: 1 warning, 0 errors
 compiling Task.c...
 ..\User\MPU\IMU.h(16): warning:  #1-D: last line of file ends without a newline
   #endif
 ..\User\Utility\Control.h(19): warning:  #1-D: last line of file ends without a newline
   #endif
 ..\User\Utility\Task.c: 2 warnings, 0 errors
-compiling Protocol.c...
-..\User\Utility\Protocol.c(102): error:  #20: identifier "Battery_Fly" is undefined
-        send_data = Battery_Fly;//?绯氐?压值??100倍
-..\User\Utility\Protocol.c(130): error:  #20: identifier "I2C_Erro" is undefined
-        data[24] =  I2C_Erro & 0xFF;
-..\User\Utility\Protocol.c(138): warning:  #1-D: last line of file ends without a newline
-  }
-..\User\Utility\Protocol.c: 1 warning, 2 errors
+compiling Filter.c...
+compiling IMU.c...
+..\User\MPU\IMU.h(16): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\User\MPU\IMU.c: 1 warning, 0 errors
 compiling Control.c...
 ..\User\Utility\Control.h(19): warning:  #1-D: last line of file ends without a newline
   #endif
 ..\User\Utility\Control.c(72): warning:  #223-D: function "Do_GYRO_Offset" declared implicitly
-                Do_GYRO_Offset();//?????????值?摇?舜??????陆牵?????摇?烁??龇???拉到?畹祝?校????????
+  		Do_GYRO_Offset();//左手油门手的摇杆打向左下角，右手摇杆俯仰方向拉到最底，校正陀螺仪
 ..\User\Utility\Control.c(73): warning:  #223-D: function "Do_ACC_Offset" declared implicitly
-                Do_ACC_Offset(); //?????????值?摇?舜??????陆牵?????摇?烁??龇???拉到?畹祝?校???俣燃?
+  		Do_ACC_Offset(); //左手油门手的摇杆打向左下角，右手摇杆俯仰方向拉到最底，校正加速度计
 ..\User\Utility\Control.c(76): warning:  #223-D: function "Delay_led" declared implicitly
-                Delay_led(50);
+  		Delay_led(50);
 ..\User\Utility\Control.c(237): warning:  #223-D: function "Motor_Out" declared implicitly
-        Motor_Out(throttle1,throttle2,throttle3,throttle4);
+  	Motor_Out(throttle1,throttle2,throttle3,throttle4);
 ..\User\Utility\Control.c(238): warning:  #1-D: last line of file ends without a newline
   }
 ..\User\Utility\Control.c: 6 warnings, 0 errors
-".\Objects\Mercury.axf" - 2 Error(s), 11 Warning(s).
+compiling bsp_led.c...
+compiling bsp_adc.c...
+compiling bsp_usart.c...
+compiling bsp_MPU.c...
+..\User\MPU\bsp_MPU.c(13): warning:  #47-D: incompatible redefinition of macro "SCL_H"  (declared at line 11 of "..\User\MPU\bsp_MPU.h")
+  #define	SCL_H   	{GPIOB->BSRR = SCL_Pin;I2C_delay(4);}	 //SCL高电平
+..\User\MPU\bsp_MPU.c(14): warning:  #47-D: incompatible redefinition of macro "SCL_L"  (declared at line 12 of "..\User\MPU\bsp_MPU.h")
+  #define	SCL_L   	{GPIOB->BRR  = SCL_Pin;I2C_delay(4);}	 //SCL低电平
+..\User\MPU\bsp_MPU.c(15): warning:  #47-D: incompatible redefinition of macro "SDA_H"  (declared at line 13 of "..\User\MPU\bsp_MPU.h")
+  #define	SDA_H   	{GPIOB->BSRR = SDA_Pin;I2C_delay(4);}	 //SDA高电平
+..\User\MPU\bsp_MPU.c(16): warning:  #47-D: incompatible redefinition of macro "SDA_L"  (declared at line 14 of "..\User\MPU\bsp_MPU.h")
+  #define	SDA_L   	{GPIOB->BRR  = SDA_Pin;I2C_delay(4);}	 //SDA低电平
+..\User\MPU\bsp_MPU.c(31): error:  #147: declaration is incompatible with "uint8_t MPU6050_Buffer[14]"  (declared at line 28)
+  uint32_t MPU6050_Buffer[14];
+..\User\MPU\bsp_MPU.c(46): warning:  #223-D: function "I2C_delay" declared implicitly
+    SCL_L;
+..\User\MPU\bsp_MPU.c(47): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SDA_H;
+..\User\MPU\bsp_MPU.c(48): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SCL_H;
+..\User\MPU\bsp_MPU.c(54): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SDA_L;
+..\User\MPU\bsp_MPU.c(60): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SDA_L;
+..\User\MPU\bsp_MPU.c(66): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SCL_L;
+..\User\MPU\bsp_MPU.c(67): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SDA_L;
+..\User\MPU\bsp_MPU.c(68): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SCL_H;
+..\User\MPU\bsp_MPU.c(69): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SDA_H;
+..\User\MPU\bsp_MPU.c(80): warning:  #223-D: function "I2C_delay" declared implicitly
+  		SCL_L;
+..\User\MPU\bsp_MPU.c(81): warning:  #223-D: function "I2C_delay" declared implicitly
+  		if(SendByte & 0x80)SDA_H;
+..\User\MPU\bsp_MPU.c(82): error:  #127: expected a statement
+  		else SDA_L;
+..\User\MPU\bsp_MPU.c(84): warning:  #223-D: function "I2C_delay" declared implicitly
+  		SCL_H;
+..\User\MPU\bsp_MPU.c(86): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SCL_L;
+..\User\MPU\bsp_MPU.c(94): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SDA_H; // release SDA, i.e. set SDA at high voltage.
+..\User\MPU\bsp_MPU.c(98): warning:  #223-D: function "I2C_delay" declared implicitly
+  		SCL_L;
+..\User\MPU\bsp_MPU.c(101): warning:  #223-D: function "I2C_delay" declared implicitly
+  		SCL_H;
+..\User\MPU\bsp_MPU.c(108): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SCL_L;
+..\User\MPU\bsp_MPU.c(116): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SCL_L;
+..\User\MPU\bsp_MPU.c(118): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SDA_H; // release SDA
+..\User\MPU\bsp_MPU.c(120): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SCL_H;
+..\User\MPU\bsp_MPU.c(124): warning:  #223-D: function "I2C_delay" declared implicitly
+  		SCL_L;
+..\User\MPU\bsp_MPU.c(129): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SCL_L;
+..\User\MPU\bsp_MPU.c(137): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SCL_L;
+..\User\MPU\bsp_MPU.c(139): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SDA_L;  // ACK
+..\User\MPU\bsp_MPU.c(141): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SCL_H;
+..\User\MPU\bsp_MPU.c(143): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SCL_L;
+..\User\MPU\bsp_MPU.c(149): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SCL_L;
+..\User\MPU\bsp_MPU.c(150): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SDA_H;  // NACK
+..\User\MPU\bsp_MPU.c(151): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SCL_H;
+..\User\MPU\bsp_MPU.c(152): warning:  #223-D: function "I2C_delay" declared implicitly
+  	SCL_L;
+..\User\MPU\bsp_MPU.c(335): error:  #247: function "Single_ReadI2C"  has already been defined
+  static uint8_t Single_ReadI2C(unsigned char Regs_Addr) 
+..\User\MPU\bsp_MPU.c(341): error:  #20: identifier "MPU6050Address" is undefined
+  	I2C_WriteByte(MPU6050Address); 	//写Slave地址，并配置成写模式
+..\User\MPU\bsp_MPU.c(366): error:  #247: function "MPU6050_SequenceRead"  has already been defined
+  uint8_t MPU6050_SequenceRead(void)
+..\User\MPU\bsp_MPU.c(372): error:  #20: identifier "MPU6050Address" is undefined
+  	I2C_WriteByte(MPU6050Address); 	//写Slave地址，并配置成写模式
+..\User\MPU\bsp_MPU.c(404): error:  #20: identifier "ACCEL_XOUT_L" is undefined
+  		MPU6050_Buffer[1] = Single_ReadI2C(ACCEL_XOUT_L);		
+..\User\MPU\bsp_MPU.c(405): error:  #20: identifier "ACCEL_YOUT_H" is undefined
+  		MPU6050_Buffer[2] = Single_ReadI2C(ACCEL_YOUT_H);	
+..\User\MPU\bsp_MPU.c(406): error:  #20: identifier "ACCEL_YOUT_L" is undefined
+  		MPU6050_Buffer[3] = Single_ReadI2C(ACCEL_YOUT_L);
+..\User\MPU\bsp_MPU.c(407): error:  #20: identifier "ACCEL_ZOUT_H" is undefined
+  		MPU6050_Buffer[4] = Single_ReadI2C(ACCEL_ZOUT_H);
+..\User\MPU\bsp_MPU.c(408): error:  #20: identifier "ACCEL_ZOUT_L" is undefined
+  		MPU6050_Buffer[5] = Single_ReadI2C(ACCEL_ZOUT_L);
+..\User\MPU\bsp_MPU.c(410): error:  #20: identifier "GYRO_XOUT_H" is undefined
+  		MPU6050_Buffer[8]  = Single_ReadI2C(GYRO_XOUT_H);
+..\User\MPU\bsp_MPU.c(411): error:  #20: identifier "GYRO_XOUT_L" is undefined
+  		MPU6050_Buffer[9]  = Single_ReadI2C(GYRO_XOUT_L);
+..\User\MPU\bsp_MPU.c(412): error:  #20: identifier "GYRO_YOUT_H" is undefined
+  		MPU6050_Buffer[10] = Single_ReadI2C(GYRO_YOUT_H);
+..\User\MPU\bsp_MPU.c(413): error:  #20: identifier "GYRO_YOUT_L" is undefined
+  		MPU6050_Buffer[11] = Single_ReadI2C(GYRO_YOUT_L);
+..\User\MPU\bsp_MPU.c(414): error:  #20: identifier "GYRO_ZOUT_H" is undefined
+  		MPU6050_Buffer[12] = Single_ReadI2C(GYRO_ZOUT_H);
+..\User\MPU\bsp_MPU.c(415): error:  #20: identifier "GYRO_ZOUT_L" is undefined
+  		MPU6050_Buffer[13] = Single_ReadI2C(GYRO_ZOUT_L);
+..\User\MPU\bsp_MPU.c(422): error:  #247: function "InitMPU6050"  has already been defined
+  uint8_t InitMPU6050(void)
+..\User\MPU\bsp_MPU.c(429): warning:  #223-D: function "PrintString" declared implicitly
+  	PrintString("\r\n MPU6050  正常！");
+..\User\MPU\bsp_MPU.c(431): warning:  #223-D: function "I2C_delay" declared implicitly
+  	I2C_delay(20000); //约2.5ms延时
+..\User\MPU\bsp_MPU.c(474): error:  #20: identifier "offset_acc" is undefined
+  			offset_acc.x = 0;
+..\User\MPU\bsp_MPU.c(486): error:  #20: identifier "acc" is undefined
+  			ACC_X += acc.x;
+..\User\MPU\bsp_MPU.c(493): error:  #20: identifier "offset_acc" is undefined
+  			offset_acc.x = ACC_X / count_acc;
+..\User\MPU\bsp_MPU.c(498): warning:  #223-D: function "EEPROM_SAVE_ACC_OFFSET" declared implicitly
+  			EEPROM_SAVE_ACC_OFFSET();
+..\User\MPU\bsp_MPU.c(501): error:  #20: identifier "LED3_ON" is undefined
+  		LED3_ON;
+..\User\MPU\bsp_MPU.c(510): error:  #20: identifier "offset_gyro" is undefined
+  			offset_gyro.x = 0;
+..\User\MPU\bsp_MPU.c(522): error:  #20: identifier "gyro" is undefined
+  			GYRO_X += gyro.x;
+..\User\MPU\bsp_MPU.c(529): error:  #20: identifier "offset_gyro" is undefined
+  			offset_gyro.x = GYRO_X / count_gyro;
+..\User\MPU\bsp_MPU.c(534): warning:  #223-D: function "EEPROM_SAVE_GYRO_OFFSET" declared implicitly
+  			EEPROM_SAVE_GYRO_OFFSET();
+..\User\MPU\bsp_MPU.c(536): error:  #20: identifier "LED3_ON" is undefined
+  		LED3_ON;
+..\User\MPU\bsp_MPU.c(544): error:  #247: function "MPU6050_Compose"  has already been defined
+  void MPU6050_Compose(void)
+..\User\MPU\bsp_MPU.c(546): error:  #20: identifier "acc" is undefined
+  	acc.x  = ((((int16_t)MPU6050_Buffer[0]) << 8) | MPU6050_Buffer[1]) - offset_acc.x;	//减去零偏
+..\User\MPU\bsp_MPU.c(546): error:  #20: identifier "offset_acc" is undefined
+  	acc.x  = ((((int16_t)MPU6050_Buffer[0]) << 8) | MPU6050_Buffer[1]) - offset_acc.x;	//减去零偏
+..\User\MPU\bsp_MPU.c(550): error:  #20: identifier "gyro" is undefined
+  	gyro.x = ((((int16_t)MPU6050_Buffer[8])  << 8) | MPU6050_Buffer[9])  - offset_gyro.x;
+..\User\MPU\bsp_MPU.c: 38 warnings, 30 errors
+compiling bsp_PWM.c...
+compiling bsp_log.c...
+..\User\Utility\bsp_log.c(21): warning:  #1-D: last line of file ends without a newline
+  }
+..\User\Utility\bsp_log.c: 1 warning, 0 errors
+compiling bsp_NRF24.c...
+compiling bsp_TIM.c...
+".\Objects\Mercury.axf" - 31 Error(s), 52 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F1xx_DFP.2.3.0.pack
+                Keil.STM32F1xx_DFP.2.3.0
+                STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
 
 <h2>Collection of Component include folders:</h2>
-  E:\Website\Drone-Mercury\4-Software\v0\Project\RTE
   C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
 Target not created.
+Build Time Elapsed:  00:00:07
 </pre>
 </body>
 </html>
