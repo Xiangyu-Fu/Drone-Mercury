@@ -28,15 +28,19 @@ Project File Date:  12/17/2022
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
 compiling bsp_NRF24.c...
-..\User\NRF24\bsp_NRF24.c(406): warning:  #1-D: last line of file ends without a newline
+..\User\NRF24\bsp_NRF24.c(358): warning:  #177-D: variable "test_data"  was declared but never referenced
+  	uint8_t test_data[32] = {0xfe, 100, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f};
+..\User\NRF24\bsp_NRF24.c(425): warning:  #1-D: last line of file ends without a newline
   }
 ..\User\NRF24\bsp_NRF24.c(309): warning:  #177-D: function "NRF24L01_Analyse"  was declared but never referenced
   static void NRF24L01_Analyse(void)
-..\User\NRF24\bsp_NRF24.c: 2 warnings, 0 errors
+..\User\NRF24\bsp_NRF24.c(324): warning:  #177-D: function "nRF24L01_Set_TX_Mode"  was declared but never referenced
+  static void nRF24L01_Set_TX_Mode(uint8_t *TX_Data)
+..\User\NRF24\bsp_NRF24.c: 4 warnings, 0 errors
 linking...
-Program Size: Code=4628 RO-data=276 RW-data=36 ZI-data=1124  
+Program Size: Code=4512 RO-data=276 RW-data=36 ZI-data=1124  
 FromELF: creating hex file...
-".\Objects\STAN-103.axf" - 0 Error(s), 2 Warning(s).
+".\Objects\STAN-103.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 

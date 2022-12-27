@@ -103,6 +103,7 @@ void loop()
     delay(1);
     while (1)
     {
+#ifdef RECEIVE_MODE
         nRF24L01_Set_RX_Mode();
         // delay(4);
         // delayMicroseconds(4);
@@ -120,16 +121,29 @@ void loop()
             nRF24L01_RX_Data(); // clear RX_DR or TX_DS or MAX_RT interrupt flag
             lastTime = millis();
         }
+#else
+        ReadJoystickValue();             // read joystick value
+        nRF24L01_Set_TX_Mode(TX_Buffer); // transmit data
+        Serial.println(nrf_sta);
+        if (Check_Ack()) // check whether the data is received
+        {
+            lastTime = millis();
+            Check_Ack();
+            Serial.println("send data ...");
+        }
 
+#endif
         // if during 1s no data received, then send data
-        if (millis() - lastTime > 5000)
+        if (millis() - lastTime > 2000)
         {
             // Serial.println("already 5s ...");
             lastTime = millis();
             uchar sta_op = SPI_R_byte(R_REGISTER + STATUS);
-            if (sta_op == 0x0e)
-                Serial.println("Have not received information for 5s ...");
+            Serial.print("sta_op: ");
+            Serial.println(sta_op);
+            Serial.println("Have not received information for 5s,");
+            Serial.println("Please check the connection of NRF24L01 ...");
         }
-        delayMicroseconds(100);
+        delay(300);
     }
 }

@@ -337,20 +337,39 @@ static void nRF24L01_Set_TX_Mode(uint8_t *TX_Data)
     NRF_CE_H;
 }
 
+void nRF24L01_Set_RX_Mode(void)
+{
+    NRF_CE_L; // 待机
+    // SPI_W_DBuffer(W_REGISTER+TX_ADDR,TX_Addr,TX_ADDR_WITDH);
+    NRF_Write_Buf(NRF_WRITE_REG + RX_ADDR_P0, RX_ADDRESS, 5);
+    NRF_Write_Reg(NRF_WRITE_REG + EN_AA, 0x01); // auot ack
+    NRF_Write_Reg(NRF_WRITE_REG + EN_RXADDR, 0x01);
+    // SPI_W_Reg(W_REGISTER+SETUP_RETR,0x0a);
+    NRF_Write_Reg(NRF_WRITE_REG + RX_PW_P0, 32);
+    NRF_Write_Reg(NRF_WRITE_REG + RF_CH, 40);
+    NRF_Write_Reg(NRF_WRITE_REG + RF_SETUP, 0x0f); // 0db,lna
+    NRF_Write_Reg(NRF_WRITE_REG + CONFIG, 0x0f);
+
+    NRF_CE_H;
+}
+
 void NRF24L01_Test(void)
 {
 	uint8_t test_data[32] = {0xfe, 100, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f};
-	nRF24L01_Set_TX_Mode(test_data);
-
-	uint8_t status = NRF_Read_Reg(NRF_READ_REG + NRFRegSTATUS);
-	if(status & (1<<MAX_RT))//达到最多次重发中断
-	{
-		if(status & (1<<TX_FULL))//TX FIFO 溢出
-		{
-			NRF_Write_Reg(FLUSH_TX,0xff);//清空发送缓冲区
-			NRF_Write_Reg(NRF_WRITE_REG + NRFRegSTATUS, status);//清除中断标志位	
-		}
-	}
+	//nRF24L01_Set_TX_Mode(test_data);
+	printf("%d", NRF24L01_RXDATA[0]);
+	NRF24L01_print_reg();
+	NRF_Write_Reg(FLUSH_RX,0xff);//清空接收缓冲区
+	NRF_Write_Reg(NRF_WRITE_REG + NRFRegSTATUS, 0xff);
+//	uint8_t status = NRF_Read_Reg(NRF_READ_REG + NRFRegSTATUS);
+//	if(status & (1<<MAX_RT))//达到最多次重发中断
+//	{
+//		if(status & (1<<TX_FULL))//TX FIFO 溢出
+//		{
+//			NRF_Write_Reg(FLUSH_TX,0xff);//清空发送缓冲区
+//			NRF_Write_Reg(NRF_WRITE_REG + NRFRegSTATUS, status);//清除中断标志位	
+//		}
+//	}
 //	NRF24L01_Analyse();
 //	//while(SPI_NRF_IRQ_Read);
 //	//uint8_t status = NRF_Read_Reg(NRF_READ_REG + NRFRegSTATUS);

@@ -47,7 +47,7 @@ int main()
 //	InitMPU6050();
 	
 	SPI_NRF_Init();
-	NRF24L01_Init(40, TX);
+	NRF24L01_Init(40, RX);
 	NRF24L01_Check();
 	
 	while(1)
@@ -69,7 +69,7 @@ int main()
 		Debug1_L;
 
 		NRF24L01_Test();
-		NRF24L01_print_reg();
+		//NRF24L01_print_reg();
 		delay(200);
 		LED3_OFF;
 
